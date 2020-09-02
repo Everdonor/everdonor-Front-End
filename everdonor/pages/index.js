@@ -1,13 +1,34 @@
 import React from "react";
-import HEREMap from "here-maps-react";
+import { Component } from 'react';
+import ReactMapGL, { Marker } from 'react-map-gl';
 
-export default function Home() {
-  return (
-    <HEREMap
-      appId={"jAsJv2nTxVC2Nz5o1CAB"}
-      apikey={"mtLUMWwVB-mtHKTCBtU0ydFOq4bobBAb-uY-RFHaFgU"}
-      center={{ lat: 10.998666, lng: -63.79841 }}
-      zoom={12}
-    />
-  );
+const ApiKey = process.env.MAP_API
+debugger
+export default class Map extends Component {
+
+  state = {
+    viewport: {
+      latitude: 37.7577,
+      longitude: -122.4376,
+      zoom: 8
+    }
+  };
+
+  render() {
+    return (
+      <div style={{ position: "relative" }}>
+        <ReactMapGL
+          {...this.state.viewport}
+          width='198vh'
+          height='89vh'
+          mapboxApiAccessToken={ApiKey}
+          onViewportChange={(viewport) => this.setState({ viewport })}
+        >
+          <Marker latitude={37.78} longitude={-122.41} offsetLeft={-20} offsetTop={-10}>
+            <div>You are here</div>
+          </Marker>
+        </ReactMapGL>
+      </div>
+    );
+  }
 }
