@@ -14,6 +14,7 @@ export default class MyDocument extends Document {
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                     />
+                    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v<YOUR_MAPBOX_VERSION>/mapbox-gl.css' rel='stylesheet' />
                 </Head>
                 <body>
                     <Main />

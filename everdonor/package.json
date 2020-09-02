@@ -23,6 +23,7 @@
     "react-bootstrap": "^1.3.0",
     "react-dom": "16.13.1",
     "react-here-maps": "^0.4.0",
+    "react-map-gl": "^5.2.8",
     "react-query": "^2.5.4",
     "react-router": "^5.2.0"
   }
