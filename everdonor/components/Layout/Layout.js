@@ -6,7 +6,7 @@ function Layout({ children }) {
         <>
             <Header />
             <div>{children}</div>
-            <RegisteredUsers />
+            {/*<RegisteredUsers />*/}
         </>
     );
 }
