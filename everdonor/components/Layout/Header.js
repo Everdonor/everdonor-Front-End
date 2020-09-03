@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Slide, Grid } from '@material-ui/core';
 import EntityCard from './Card'
 import MenuIcon from '@material-ui/icons/Menu';
+import useUsers from '../../utils/useUsers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,12 +20,17 @@ const useStyles = makeStyles((theme) => ({
         width: '10%',
         marginLeft: "auto"
     },
+    putOver: {
+        zIndex: 9999,
+        position: "absolute"
+    }
 }));
 
 export default function Header() {
     const classes = useStyles();
     const [isOpenSideMenu, setIsOpenSideMenu] = useState(false)
 
+    const users = useUsers()
     const toggleSideMenu = () => { setIsOpenSideMenu(!isOpenSideMenu) }
 
     return (
@@ -40,9 +46,12 @@ export default function Header() {
                 </Toolbar>
             </AppBar>
             <Slide direction="right" in={isOpenSideMenu} mountOnEnter unmountOnExit>
-                <Grid container spacing={3}>
+                <Grid container className={classes.putOver} spacing={3}>
                     <Grid item xs={3}>
-                        <EntityCard />
+                        {users.map((user) => (
+                            <EntityCard {...user} />
+                        ))
+                        }
                     </Grid>
                 </Grid>
             </Slide>
