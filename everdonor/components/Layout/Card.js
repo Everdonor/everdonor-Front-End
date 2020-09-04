@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 export default function EntityCard({ name, email, phoneNumber }) {
     const classes = useStyles();
     return (
-        <Card className={classes.root}>
+        <Card elevation={0} className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {name}
