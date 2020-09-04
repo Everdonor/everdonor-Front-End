@@ -3,6 +3,7 @@ import ReactMapGL, { GeolocateControl, Popup } from "react-map-gl";
 import Pins from "../components/Layout/pins";
 import useUsers from "../utils/useUsers";
 import useGeolocation from "../utils/useGeolocation";
+import EntityCard from "../components/Layout/Card";
 
 const ApiKey = process.env.MAP_API;
 const geolocateStyle = {
@@ -18,7 +19,7 @@ export default function Map() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
 
-  const _onClickMarker = ({user}) => {
+  const _onClickMarker = ({ user }) => {
     setPopUpInfo(user);
     setShowPopUp(true);
   };
@@ -50,7 +51,7 @@ export default function Map() {
             }}
             anchor="top"
           >
-            <div>{popUpInfo.name}</div>
+            <EntityCard {...popUpInfo} />
           </Popup>
         )}
       </ReactMapGL>
