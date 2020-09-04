@@ -21,7 +21,7 @@ export default function Pins({ data, onClick }) {
                     stroke: 'none',
                     transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
                 }}
-                onClick={() => onClick(user)}
+                onClick={() => onClick({user})}
             >
                 <path d={ICON} />
             </svg>
