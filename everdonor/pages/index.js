@@ -1,35 +1,39 @@
-import React, { useEffect, useState } from "react";
-import ReactMapGL from 'react-map-gl';
-import Pins from '../components/Layout/pins';
+import React, { useState } from "react";
+import ReactMapGL, { GeolocateControl } from "react-map-gl";
+import Pins from "../components/Layout/pins";
 import useUsers from "../utils/useUsers";
+import useGeolocation from "../utils/useGeolocation";
 
-const ApiKey = process.env.MAP_API
+const ApiKey = process.env.MAP_API;
+const geolocateStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  margin: 10,
+};
 
 export default function Map() {
+  const [location, setLocation] = useGeolocation();
+  const users = useUsers([]);
+  const _onClickMarker = () => {};
 
-    const [viewport, setViewport] = useState({
-        latitude: 37.7577,
-        longitude: -122.4376,
-        zoom: 8
-    }
-    );
-    const users = useUsers([]);
-    const _onClickMarker = () => {
-
-    };
-
-    return (
-        <div style={{ position: "relative" }}>
-            <ReactMapGL
-                {...viewport}
-                width='198vh'
-                height='89vh'
-                mapboxApiAccessToken={ApiKey}
-                onViewportChange={(viewport) => setViewport(viewport)}
-            >
-                <Pins data={users} onClick={_onClickMarker} />
-            </ReactMapGL>
-        </div>
-    );
-
+  return (
+    <div style={{ position: "relative" }}>
+      <ReactMapGL
+        {...location}
+        width="198vh"
+        height="89vh"
+        mapboxApiAccessToken={ApiKey}
+        onViewportChange={(viewport) => setLocation(viewport)}
+      >
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          label={"Go to my location"}
+          fitBoundsOptions={{maxZoom: 15}}
+        />
+        <Pins data={users} onClick={_onClickMarker} />
+      </ReactMapGL>
+    </div>
+  );
 }
