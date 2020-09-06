@@ -1,5 +1,5 @@
-import EverdonorAPI from '../Layout/EverdonorAPI';
-import {Component} from "react";
+import EverdonorAPI from 'api-client/EverdonorAPI';
+import { Component } from "react";
 
 class RegisteredUsers extends Component {
 

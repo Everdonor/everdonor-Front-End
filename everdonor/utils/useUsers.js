@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EverdonorAPI from "../components/Layout/EverdonorAPI";
+import EverdonorAPI from "api-client/EverdonorAPI";
 
 
 export default function useUsers() {

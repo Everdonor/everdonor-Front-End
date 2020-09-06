@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Slide, Grid } from '@material-ui/core';
 import EntityCard from './Card'
-import useUsers from '../../utils/useUsers';
+import useUsers from 'utils/useUsers';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import MapIcon from '@material-ui/icons/Map';

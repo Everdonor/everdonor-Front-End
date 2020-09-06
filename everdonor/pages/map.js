@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ReactMapGL, { GeolocateControl, Popup } from "react-map-gl";
-import Pins from "../components/Layout/pins";
-import useUsers from "../utils/useUsers";
-import useGeolocation from "../utils/useGeolocation";
-import EntityCard from "../components/Layout/Card";
+import Pins from "components/Layout/pins";
+import useUsers from "utils/useUsers";
+import useGeolocation from "utils/useGeolocation";
+import EntityCard from "components/Layout/Card";
 import SearchBar from "components/Layout/SearchBar"
 
 const ApiKey = process.env.MAP_API;
