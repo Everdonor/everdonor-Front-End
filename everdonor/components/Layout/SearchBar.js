@@ -33,15 +33,20 @@ export default function CustomizedInputBase({ onClick }) {
     const classes = useStyles();
     const [name, setName] = useState("")
 
+    const sendName = (evt, name) => {
+        evt.preventDefault()
+        onClick(name)
+    }
+
     return (
         <Paper component="form" className={classes.root}>
             <InputBase
                 className={classes.input}
                 placeholder="Buscar"
-                onBlur={(event) => setName(event.target.value)}
+                onChange={(event) => setName(event.target.value)}
                 inputProps={{ 'aria-label': 'search google maps' }}
             />
-            <IconButton type="submit" onClick={() => onClick(name)} className={classes.iconButton} aria-label="search">
+            <IconButton type="submit" onClick={(evt) => sendName(evt, name)} className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
         </Paper>

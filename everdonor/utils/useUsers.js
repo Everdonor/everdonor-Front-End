@@ -6,10 +6,15 @@ export default function useUsers() {
 
     const [users, setUsers] = useState([]);
 
+    const searchByName = (name) => {
+        EverdonorAPI.searchByName(name)
+            .then(resData => { debugger; setUsers(resData) })
+    }
+
     useEffect(() => {
-        EverdonorAPI.getUsers('/users')
+        EverdonorAPI.getUsers()
             .then(resData => setUsers(resData))
     }, []);
 
-    return users
+    return [users, searchByName]
 }
