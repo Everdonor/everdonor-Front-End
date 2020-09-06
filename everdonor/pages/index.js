@@ -37,11 +37,6 @@ export default function Home() {
                 <Grid item xs={12}>
                     <img src={"/large_everdonor.png"} alt={"icono"} className={classes.Icon} />
                 </Grid>
-                {/* <Grid item xs={12} className={classes.alignText}>
-                    <Typography variant="h1" component="h2" gutterBottom>
-                        Motivacion:
-                    </Typography>
-                </Grid> */}
                 <Paper item boxShadow={1} xs={12} className={classes.alignText}>
                     <Typography className={classes.marginText} variant="h3" gutterBottom>
                         Everdonor es la applicacion facil para que encuentres a quien mas necesita lo que vos tenes para dar!<br /> <br />

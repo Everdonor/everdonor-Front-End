@@ -4,6 +4,7 @@ import Pins from "../components/Layout/pins";
 import useUsers from "../utils/useUsers";
 import useGeolocation from "../utils/useGeolocation";
 import EntityCard from "../components/Layout/Card";
+import SearchBar from "components/Layout/SearchBar"
 
 const ApiKey = process.env.MAP_API;
 const geolocateStyle = {
@@ -33,6 +34,7 @@ export default function Map() {
         mapboxApiAccessToken={ApiKey}
         onViewportChange={(viewport) => setLocation(viewport)}
       >
+        <SearchBar />
         <GeolocateControl
           style={geolocateStyle}
           positionOptions={{ enableHighAccuracy: true }}
