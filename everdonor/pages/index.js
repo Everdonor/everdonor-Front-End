@@ -1,60 +1,64 @@
-import React, { useState } from "react";
-import ReactMapGL, { GeolocateControl, Popup } from "react-map-gl";
-import Pins from "../components/Layout/pins";
-import useUsers from "../utils/useUsers";
-import useGeolocation from "../utils/useGeolocation";
-import EntityCard from "../components/Layout/Card";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, Paper } from '@material-ui/core';
 
-const ApiKey = process.env.MAP_API;
-const geolocateStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  margin: 10,
-};
 
-export default function Map() {
-  const [location, setLocation] = useGeolocation();
-  const users = useUsers([]);
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [popUpInfo, setPopUpInfo] = useState({});
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    alignText: {
+        marginLeft: 200,
+        marginRight: 200,
+        backgroundColor: theme.palette.secondary.main
+    },
+    marginText: {
+        margin: 50,
+    },
+    Icon: {
+        textAlign: 'center',
+    },
+}));
 
-  const _onClickMarker = ({ user }) => {
-    setPopUpInfo(user);
-    setShowPopUp(true);
-  };
+export default function Home() {
+    const classes = useStyles();
 
-  return (
-    <div style={{ position: "relative" }}>
-      <ReactMapGL
-        {...location}
-        width="198vh"
-        height="89vh"
-        mapboxApiAccessToken={ApiKey}
-        onViewportChange={(viewport) => setLocation(viewport)}
-      >
-        <GeolocateControl
-          style={geolocateStyle}
-          positionOptions={{ enableHighAccuracy: true }}
-          label={"Go to my location"}
-          fitBoundsOptions={{ maxZoom: 15 }}
-        />
-        <Pins data={users} onClick={_onClickMarker} />
-        {showPopUp && (
-          <Popup
-            latitude={popUpInfo.latitude}
-            longitude={popUpInfo.longitude}
-            closeButton={true}
-            closeOnClick={false}
-            onClose={() => {
-              setShowPopUp(false);
-            }}
-            anchor="top"
-          >
-            <EntityCard {...popUpInfo} />
-          </Popup>
-        )}
-      </ReactMapGL>
-    </div>
-  );
+    const router = useRouter();
+
+    return (
+        <div className={classes.root}>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+            >
+                <Grid item xs={12}>
+                    <img src={"/large_everdonor.png"} alt={"icono"} className={classes.Icon} />
+                </Grid>
+                {/* <Grid item xs={12} className={classes.alignText}>
+                    <Typography variant="h1" component="h2" gutterBottom>
+                        Motivacion:
+                    </Typography>
+                </Grid> */}
+                <Paper item boxShadow={1} xs={12} className={classes.alignText}>
+                    <Typography className={classes.marginText} variant="h3" gutterBottom>
+                        Everdonor es la applicacion facil para que encuentres a quien mas necesita lo que vos tenes para dar!<br /> <br />
+                        Ingresa <a href="/map" onClick={() => router.push("/map")}>aqui!</a>, para poder empezar a ver quien puede recibir tu donacion!
+                    </Typography>
+                </Paper>
+                <hr />
+                <Paper item xs={12} className={classes.alignText}>
+                    <Typography className={classes.marginText} variant="h2" gutterBottom>
+                        Como Funciona?
+                    </Typography>
+                    <Typography className={classes.marginText} variant="h4" gutterBottom>
+                        La funcion principal de esta herramienta es poder hacer visibles las necesidades de otros y que se puedan mostrar cerca tuyo!<br /><br />
+                        Solamente clickea en el marcador que te llame la atencion y podras ver todos los datos de contacto, donaciones que necesitan y horarios de atencion!
+                    </Typography>
+                </Paper>
+            </Grid>
+        </div>
+    );
 }

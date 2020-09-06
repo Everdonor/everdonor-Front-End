@@ -16,6 +16,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.2",
     "cypress": "^5.0.0",
+    "fontsource-roboto": "^3.0.3",
     "here-maps-react": "^2.0.0",
     "next": "9.3.5",
     "next-i18next": "^4.5.0",
