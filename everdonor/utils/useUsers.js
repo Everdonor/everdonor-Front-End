@@ -8,7 +8,12 @@ export default function useUsers() {
 
     const searchByName = (name) => {
         EverdonorAPI.searchByName(name)
-            .then(resData => { debugger; setUsers(resData) })
+            .then(resData => setUsers(resData))
+    }
+
+    const searchByType = (name) => {
+        EverdonorAPI.searchByType(name)
+            .then(resData => setUsers(resData))
     }
 
     useEffect(() => {
@@ -16,5 +21,5 @@ export default function useUsers() {
             .then(resData => setUsers(resData))
     }, []);
 
-    return [users, searchByName]
+    return [users, searchByName, searchByType]
 }

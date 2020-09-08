@@ -4,6 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import Select from '@material-ui/core/Select';
+
+const Types = [
+    { name: "Comida", value: "Food" },
+    { name: "Ropa", value: "Clothes" },
+    { name: "Ayuda economica", value: "Funding" },
+]
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CustomizedInputBase({ onClick }) {
+export default function CustomizedInputBase({ onClick, onChange }) {
     const classes = useStyles();
     const [name, setName] = useState("")
 
@@ -49,6 +56,15 @@ export default function CustomizedInputBase({ onClick }) {
             <IconButton type="submit" onClick={(evt) => sendName(evt, name)} className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
+            <Select
+                native
+                onChange={evt => onChange(evt.target.value)}
+            >
+                {Types.map(type =>
+                    <option value={type.value}>{type.name}</option>
+                )
+                }
+            </Select>
         </Paper>
     );
 }
