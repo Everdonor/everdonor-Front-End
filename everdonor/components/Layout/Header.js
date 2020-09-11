@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
+    grid: {
+        overflow: 'scroll',
+    },
     menuButton: {
         marginRight: theme.spacing(4),
     },
@@ -43,7 +46,7 @@ export default function Header() {
 
     const router = useRouter()
 
-    const users = useUsers()
+    const [users] = useUsers([]);
     const toggleSideMenu = () => { setIsOpenSideMenu(!isOpenSideMenu) }
 
     const sendTo = (url) => {
@@ -73,9 +76,9 @@ export default function Header() {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <Slide direction="right" in={isOpenSideMenu} mountOnEnter unmountOnExit>
+            <Slide direction="right" in={isOpenSideMenu} >
                 <Grid container className={classes.putOver} spacing={3}>
-                    <Grid item xs={3}>
+                    <Grid item xl={2}>
                         {users.map((user) => (
                             <EntityCard {...user} />
                         ))

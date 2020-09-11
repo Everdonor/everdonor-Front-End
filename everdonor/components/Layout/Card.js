@@ -1,38 +1,50 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        maxWidth: 345,
     },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
+    media: {
+        height: 140,
     },
 });
 
-export default function EntityCard({ name, email, phoneNumber }) {
+export default function EntityCard({ name, email, phoneNumber, image }) {
     const classes = useStyles();
+
     return (
-        <Card elevation={0} className={classes.root}>
-            <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {name}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                    {email}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    {phoneNumber}
-                </Typography>
-            </CardContent>
+        <Card className={classes.root}>
+            <CardActionArea>
+                <CardMedia
+                    className={classes.media}
+                    image={image}
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {email}
+                        <br />
+                        {phoneNumber}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    Ver mas
+        </Button>
+            </CardActions>
         </Card>
     );
 }
+
