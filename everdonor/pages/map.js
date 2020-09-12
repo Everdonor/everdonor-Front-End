@@ -10,8 +10,8 @@ import { Grid } from "@material-ui/core";
 const ApiKey = process.env.MAP_API;
 const geolocateStyle = {
   position: "absolute",
-  top: 0,
-  left: 0,
+  top: 10,
+  right: 10,
   margin: 10,
 };
 
@@ -39,8 +39,8 @@ export default function Map() {
       <Grid item xs={12}>
         <ReactMapGL
           {...location}
-          width="99.9vw"
-          height="88vh"
+          width="100vw"
+          height="calc(100vh - 64px)"
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
