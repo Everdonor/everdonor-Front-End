@@ -4,7 +4,8 @@ import Pins from "components/Layout/pins";
 import useUsers from "utils/useUsers";
 import useGeolocation from "utils/useGeolocation";
 import EntityCard from "components/Layout/Card";
-import SearchBar from "components/Layout/SearchBar"
+import SearchBar from "components/Layout/SearchBar";
+import { Grid } from "@material-ui/core";
 
 const ApiKey = process.env.MAP_API;
 const geolocateStyle = {
@@ -21,12 +22,12 @@ export default function Map() {
   const [popUpInfo, setPopUpInfo] = useState({});
 
   const onClickSearch = (name) => {
-    searchByName(name)
-  }
+    searchByName(name);
+  };
 
   const onChangeSelect = (value) => {
-    searchByType(value)
-  }
+    searchByType(value);
+  };
 
   const _onClickMarker = ({ user }) => {
     setPopUpInfo(user);
@@ -34,37 +35,39 @@ export default function Map() {
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <ReactMapGL
-        {...location}
-        width="198vh"
-        height="89vh"
-        mapboxApiAccessToken={ApiKey}
-        onViewportChange={(viewport) => setLocation(viewport)}
-      >
-        <SearchBar onClick={onClickSearch} onChange={onChangeSelect} />
-        <GeolocateControl
-          style={geolocateStyle}
-          positionOptions={{ enableHighAccuracy: true }}
-          label={"Go to my location"}
-          fitBoundsOptions={{ maxZoom: 15 }}
-        />
-        <Pins data={users} onClick={_onClickMarker} />
-        {showPopUp && (
-          <Popup
-            latitude={popUpInfo.latitude}
-            longitude={popUpInfo.longitude}
-            closeButton={true}
-            closeOnClick={false}
-            onClose={() => {
-              setShowPopUp(false);
-            }}
-            anchor="top"
-          >
-            <EntityCard {...popUpInfo} />
-          </Popup>
-        )}
-      </ReactMapGL>
-    </div>
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item xs={12}>
+        <ReactMapGL
+          {...location}
+          width="99.9vw"
+          height="88vh"
+          mapboxApiAccessToken={ApiKey}
+          onViewportChange={(viewport) => setLocation(viewport)}
+        >
+          <SearchBar onClick={onClickSearch} onChange={onChangeSelect} />
+          <GeolocateControl
+            style={geolocateStyle}
+            positionOptions={{ enableHighAccuracy: true }}
+            label={"Go to my location"}
+            fitBoundsOptions={{ maxZoom: 15 }}
+          />
+          <Pins data={users} onClick={_onClickMarker} />
+          {showPopUp && (
+            <Popup
+              latitude={popUpInfo.latitude}
+              longitude={popUpInfo.longitude}
+              closeButton={true}
+              closeOnClick={false}
+              onClose={() => {
+                setShowPopUp(false);
+              }}
+              anchor="top"
+            >
+              <EntityCard {...popUpInfo} />
+            </Popup>
+          )}
+        </ReactMapGL>
+      </Grid>
+    </Grid>
   );
 }
