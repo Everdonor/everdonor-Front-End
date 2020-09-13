@@ -15,6 +15,7 @@
     "@zeit-ui/react": "^1.8.0-canary.6",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.2",
+    "clsx": "^1.1.1",
     "cypress": "^5.0.0",
     "fontsource-roboto": "^3.0.3",
     "here-maps-react": "^2.0.0",
