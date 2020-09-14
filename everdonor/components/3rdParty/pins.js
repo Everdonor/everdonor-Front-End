@@ -7,8 +7,7 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 
 const SIZE = 30;
 
-// Important for perf: the markers never change, avoid rerender when the map viewport changes
-export default function Pins({ data, onClick }) {
+export default function Pins({ data, onClick = () => { } }) {
 
     return data.map((user, index) => {
         return <Marker key={`marker-${user.id}`} longitude={user.longitude} latitude={user.latitude}>
@@ -21,7 +20,7 @@ export default function Pins({ data, onClick }) {
                     stroke: 'none',
                     transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
                 }}
-                onClick={() => onClick({user})}
+                onClick={() => onClick({ user })}
             >
                 <path d={ICON} />
             </svg>
