@@ -13,10 +13,6 @@ export default function useUsers(value = {}) {
         setForm({ ...form, image: value })
     }
 
-    // const addCoordenatesValue = ({ latitude, longitude }) => {
-    //     setForm({ ...form, latitude, longitude })
-
-    // }
 
     return [form, addOrUpdateValue, addImageValue]
 }

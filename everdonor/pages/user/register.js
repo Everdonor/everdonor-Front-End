@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useForm from "utils/useForm"
 import { Avatar, Button, CssBaseline, TextField, Typography, makeStyles, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
 import dynamic from "next/dynamic";
@@ -46,7 +47,7 @@ export default function SignIn() {
 
     const sendForm = () => {
         event.preventDefault()
-        console.log({ ...form, ...coordenate })
+        API.createUser({ ...form, ...coordenate })
     }
 
     const manipulateCoordenates = ({ latitude, longitude }) => {
