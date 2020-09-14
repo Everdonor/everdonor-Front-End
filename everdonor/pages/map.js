@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import ReactMapGL, { GeolocateControl, Popup } from "react-map-gl";
-import Pins from "components/Layout/pins";
+import Pins from "components/3rdParty/pins";
 import useUsers from "utils/useUsers";
 import useGeolocation from "utils/useGeolocation";
 import EntityCard from "components/Layout/Card";
-import SearchBar from "components/Layout/SearchBar";
+import SearchBar from "components/3rdParty/SearchBar";
 import { Grid } from "@material-ui/core";
 
 const ApiKey = process.env.MAP_API;
