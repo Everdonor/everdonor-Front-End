@@ -121,6 +121,20 @@ export default function SignIn() {
                             </MenuItem>
                         ))}
                     </TextField>
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        onChange={addOrUpdateValue("address")}
+                        id="address"
+                        label="Direccion"
+                        name="address"
+                    />
+
+                    <br />
+
                     <MapWithSearch setCoordenates={manipulateCoordenates} />
                     <br />
 
