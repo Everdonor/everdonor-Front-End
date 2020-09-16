@@ -19,6 +19,7 @@
     "cypress": "^5.0.0",
     "fontsource-roboto": "^3.0.3",
     "here-maps-react": "^2.0.0",
+    "material-ui-dropzone": "^3.4.0",
     "next": "9.3.5",
     "next-i18next": "^4.5.0",
     "react": "16.13.1",
@@ -26,6 +27,7 @@
     "react-dom": "16.13.1",
     "react-here-maps": "^0.4.0",
     "react-map-gl": "^5.2.8",
+    "react-map-gl-geocoder": "^2.1.2",
     "react-query": "^2.5.4",
     "react-router": "^5.2.0"
   }

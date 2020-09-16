@@ -32,11 +32,7 @@ const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    // flexGrow: 1,
   },
-  // grid: {
-  //     overflow: 'scroll',
-  // },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -98,10 +94,6 @@ const useStyles = makeStyles((theme) => ({
     height: 64,
     marginLeft: "auto",
   },
-  // putOver: {
-  //     zIndex: 9999,
-  //     position: "absolute"
-  // },
   appColor: {
     backgroundColor: "#f5f5e6",
   },
@@ -151,7 +143,7 @@ export default function Header() {
               Mapa
             </IconButton>
             <IconButton
-              onClick={() => sendTo("register")}
+              onClick={() => sendTo("user/register")}
               className={classes.menuButton}
               aria-label="open drawer"
               edge="end"
@@ -183,15 +175,6 @@ export default function Header() {
       >
         <div className={classes.drawerHeader} />
       </main>
-      {/* <Slide direction="right" in={isOpenSideMenu}>
-        <Grid container className={classes.putOver} spacing={3}>
-          <Grid item xl={2}>
-            {users.map((user) => (
-              <EntityCard {...user} />
-            ))}
-          </Grid>
-        </Grid>
-      </Slide> */}
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -206,15 +189,14 @@ export default function Header() {
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon />
-            )}
+                <ChevronLeftIcon />
+              )}
           </IconButton>
         </div>
         <Divider />
         <List>
-        <Grid
+          <Grid
             container
-            // className={classes.putOver}
             spacing={3}
           >
             <Grid item xl={2}>
@@ -223,25 +205,6 @@ export default function Header() {
               ))}
             </Grid>
           </Grid>
-          {/* {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))} */}
         </List>
       </Drawer>
     </div>
