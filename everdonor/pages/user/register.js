@@ -6,13 +6,14 @@ import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
 import dynamic from "next/dynamic";
+import MapWithSearch from "components/3rdParty/MapWithSearch"
 
-const MapWithSearch = dynamic(
-    () => {
-        return import("components/3rdParty/MapWithSearch");
-    },
-    { ssr: false }
-);
+// const MapWithSearch = dynamic(
+//     () => {
+//         return import("components/3rdParty/MapWithSearch");
+//     },
+//     { ssr: false }
+// );
 
 const types = [
     { name: "Comida", value: "Food" },

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import { DropzoneArea } from 'material-ui-dropzone'
 
 export default function Dropzone({ onUpload }) {

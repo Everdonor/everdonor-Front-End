@@ -18,13 +18,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function EntityCard({ id, name, email, phoneNumber, image, closeDrawerOnClick}) {
+export default function EntityCard({ id, name, email, phoneNumber, image, closeDrawerOnClick }) {
   const classes = useStyles();
   const router = useRouter();
-  
+
   const handleClick = () => {
-    closeDrawerOnClick(false);
-    router.push('/user/[id]',`/user/${id}`);
+    // closeDrawerOnClick(false);
+    router.push('/user/[id]', `/user/${id}`);
   };
 
   return (
