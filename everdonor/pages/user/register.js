@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import useForm from "utils/useForm"
 import { Avatar, Button, CssBaseline, TextField, Typography, makeStyles, Container } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
-import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import MapWithSearch from "components/3rdParty/MapWithSearch"
 
-// const MapWithSearch = dynamic(
-//     () => {
-//         return import("components/3rdParty/MapWithSearch");
-//     },
-//     { ssr: false }
-// );
 
 const types = [
     { name: "Comida", value: "Food" },
@@ -44,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const [form, addOrUpdateValue, addImageValue] = useForm();
-    const [coordenate, setCoordenates] = useState()
+    const [coordenate, setCoordenates] = useState();
+    const router = useRouter()
 
     const sendForm = () => {
         event.preventDefault()
-        API.createUser({ ...form, ...coordenate })
+        API.createUser({ ...form, ...coordenate }).then(router.push("/map"))
     }
 
     const manipulateCoordenates = ({ latitude, longitude }) => {
@@ -139,7 +133,7 @@ export default function SignIn() {
                     <MapWithSearch setCoordenates={manipulateCoordenates} />
                     <br />
 
-                    <DropzoneArea onUpload={addImageValue} reference={form} />
+                    <DropzoneArea onUpload={addImageValue} />
                     <Button
                         type="submit"
                         fullWidth

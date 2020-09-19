@@ -15,6 +15,7 @@ import API from "api-client/EverdonorAPI"
 import { makeStyles } from "@material-ui/core/styles";
 import useForm from "utils/useForm"
 import Modal from 'components/Modal'
+import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MapWithSearch from "components/3rdParty/MapWithSearch"
 
 
@@ -122,11 +123,7 @@ export default function Modify({ user }) {
                     <Grid item xs={4}>
                         <Paper className={classes.gridPaper}>
                             <Grid item container className={classes.profileCardImage}>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={form.image}
-                                    className={classes.largeAvatar}
-                                />
+                                <DropzoneArea onUpload={addImageValue} />
                                 <TextField id="outlined-basic" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" className={classes.profileCard} />
                             </Grid>
                         </Paper>
