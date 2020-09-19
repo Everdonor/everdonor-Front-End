@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useGeolocation() {
+export default function useGeolocation(coordenates) {
 
     const [location, setLocation] = useState({
         latitude: 0,
@@ -9,14 +9,17 @@ export default function useGeolocation() {
     })
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            setLocation({
-                ...location, 
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            })
-          });
-    }, []);
+        coordenates && coordenates.longitude ?
+            setLocation({ ...coordenates, zoom: 15 })
+            :
+            navigator.geolocation.getCurrentPosition(function (position) {
+                setLocation({
+                    ...location,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                })
+            });
+    }, [coordenates]);
 
     return [location, setLocation];
 }

@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InboxIcon from "@material-ui/icons/Inbox";
 import EntityCard from "./Card";
 import useUsers from "utils/useUsers";
@@ -151,6 +152,15 @@ export default function Header() {
               <AddCircleIcon className={classes.spaceIcons} />
               Mostrate!
             </IconButton>
+            {/* <IconButton
+              onClick={() => sendTo("user/profile")}
+              className={classes.menuButton}
+              aria-label="open drawer"
+              edge="end"
+            >
+              <AccountCircleIcon className={classes.spaceIcons} />
+              Perfil
+            </IconButton> */}
             <IconButton
               onClick={() => sendTo("")}
               className={classes.menuButton}
@@ -201,7 +211,7 @@ export default function Header() {
           >
             <Grid item xl={2}>
               {users.map((user) => (
-                <EntityCard {...user} />
+                <EntityCard {...user} closeDrawerOnClick={setIsOpenSideMenu}/>
               ))}
             </Grid>
           </Grid>

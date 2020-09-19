@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import { DropzoneArea } from 'material-ui-dropzone'
 
-export default function Dropzone({ onUpload }) {
+export default function Dropzone({ onUpload, className }) {
 
     const handleChange = async (files) => {
         if (files.length === 0) {
@@ -20,10 +20,15 @@ export default function Dropzone({ onUpload }) {
     });
 
     return (
-        <DropzoneArea
-            filesLimit={1}
-            onChange={handleChange}
-        />
+        <div className={className}>
+            <DropzoneArea
+                filesLimit={1}
+                accept="image/png"
+                minSize={0}
+                maxSize={5242880}
+                onChange={handleChange}
+            />
+        </div>
     )
 
 }
