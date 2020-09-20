@@ -9,6 +9,7 @@ const API = {
     searchById: (id) => Axios.get(`${server}users/${id}`).then(response => response.data),
     createUser: (body) => Axios.post(`${server}sign-up`, { ...body }).then(response => response.data),
     modifyUser: (body) => Axios.put(`${server}users/${body.id}`, { ...body }).then(response => response.data),
+    reportUser: (id) => Axios.put(`${server}users/${id}/report`).then(response => response.data).catch(error => {console.log(error)}),
 };
 
 
