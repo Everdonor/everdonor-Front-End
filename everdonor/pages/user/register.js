@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useForm from "utils/useForm"
-import { Avatar, Button, CssBaseline, TextField, Typography, makeStyles, Container } from '@material-ui/core';
+import { Grid, Button, CssBaseline, TextField, Typography, makeStyles, Container } from '@material-ui/core';
 import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -57,95 +57,116 @@ export default function SignIn() {
                     Registrate!
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={sendForm}>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={addOrUpdateValue("name")}
-                        id="name"
-                        label="Nombre"
-                        name="name"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={addOrUpdateValue("email")}
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={addOrUpdateValue("password")}
-                        name="password"
-                        label="Contraseña"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={addOrUpdateValue("phoneNumber")}
-                        name="phoneNumber"
-                        label="Telefono"
-                        type="number"
-                        id="phoneNumber"
-                    />
-                    <TextField
-                        id="standard-select-currency"
-                        select
-                        label="Tipo de donacion"
-                        fullWidth
-                        onChange={addOrUpdateValue("donationType")}
-                        helperText="Por favor seleccione que tipo de donacion necesita"
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={3}
                     >
-                        {types.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={addOrUpdateValue("address")}
-                        id="address"
-                        label="Direccion"
-                        name="address"
-                    />
-
-                    <br />
-
-                    <MapWithSearch setCoordenates={manipulateCoordenates} />
-                    <br />
-
-                    <DropzoneArea onUpload={addImageValue} />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Aceptar
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={addOrUpdateValue("name")}
+                                id="name"
+                                label="Nombre"
+                                name="name"
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={addOrUpdateValue("email")}
+                                id="email"
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={addOrUpdateValue("password")}
+                                name="password"
+                                label="Contraseña"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={addOrUpdateValue("phoneNumber")}
+                                name="phoneNumber"
+                                label="Telefono"
+                                type="number"
+                                id="phoneNumber"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="standard-select-currency"
+                                select
+                                label="Tipo de donacion"
+                                fullWidth
+                                onChange={addOrUpdateValue("donationType")}
+                                helperText="Por favor seleccione que tipo de donacion necesita"
+                            >
+                                {types.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={addOrUpdateValue("address")}
+                                id="address"
+                                label="Direccion"
+                                name="address"
+                            />
+                        </Grid>
+                        <br />
+                        <Grid item xs={6}>
+                            <MapWithSearch height="30vh" setCoordenates={manipulateCoordenates} />
+                            <br />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <DropzoneArea onUpload={addImageValue} />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Aceptar
                     </Button>
+                        </Grid>
+                    </Grid>
+
                 </form>
             </div>
-        </Container>
+        </Container >
     );
 }
 

@@ -32,14 +32,14 @@ export default function EntityCard({
   email,
   phoneNumber,
   image,
-  closeDrawerOnClick,
+  closeDrawerOnClick = () => { },
 }) {
   const classes = useStyles();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    closeDrawerOnClick(false);
+    //closeDrawerOnClick(false);
     router.push("/user/[id]", `/user/${id}`);
   };
 

@@ -13,7 +13,7 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 const SIZE = 30;
 
 
-const MapWithSearch = ({ setCoordenates, coordenates, disableClick }) => {
+const MapWithSearch = ({ setCoordenates, coordenates, disableClick, height = "65vh" }) => {
     const [viewport, setViewport] = useGeolocation(coordenates);
     const [marker, setMarker] = useState(coordenates)
     const mapRef = useRef();
@@ -44,7 +44,7 @@ const MapWithSearch = ({ setCoordenates, coordenates, disableClick }) => {
 
 
     return (
-        <div style={{ height: "65vh" }}>
+        <div style={{ height: height }}>
             <ReactMapGL
                 {...viewport}
                 countries={"ar"}
