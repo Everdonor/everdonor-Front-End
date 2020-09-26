@@ -44,7 +44,7 @@ const MapWithSearch = ({ setCoordenates, coordenates, disableClick, height = "65
 
 
     return (
-        <div style={{ height: height }}>
+        <div style={{ height: height }} id="testMap">
             <ReactMapGL
                 {...viewport}
                 countries={"ar"}

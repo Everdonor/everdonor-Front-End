@@ -22,6 +22,7 @@ export default function Dropzone({ onUpload, className }) {
     return (
         <div className={className}>
             <DropzoneArea
+                inputProps={{ id: "testImg" }}
                 filesLimit={1}
                 accept="image/png"
                 minSize={0}
