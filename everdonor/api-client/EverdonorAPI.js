@@ -8,7 +8,7 @@ const API = {
     searchByType: (type) => Axios.get(`${server}users?type=${type}`).then(response => response.data),
     searchById: (id) => Axios.get(`${server}users/${id}`).then(response => response.data),
     createUser: (body) => Axios.post(`${server}sign-up`, { ...body }).then(response => response.data),
-    loginUser: (body) => Axios.post(`${server}login`, { ...body }).then(response => response),
+    loginUser: (body) => Axios.post(`${server}login`, { ...body }).then(response => response.headers),
     modifyUser: (body) => Axios.put(`${server}users/${body.id}`, { ...body }).then(response => response.data),
     reportUser: (id) => Axios.put(`${server}users/${id}/report`).then(response => response.data).catch(error => { console.log(error) }),
 };
