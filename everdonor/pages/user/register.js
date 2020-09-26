@@ -119,7 +119,7 @@ export default function SignIn() {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                id="standard-select-currency"
+                                id="donation"
                                 select
                                 label="Tipo de donacion"
                                 fullWidth
@@ -127,7 +127,7 @@ export default function SignIn() {
                                 helperText="Por favor seleccione que tipo de donacion necesita"
                             >
                                 {types.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
+                                    <MenuItem key={option.value} id={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
                                 ))}
@@ -153,6 +153,7 @@ export default function SignIn() {
                         <Grid item xs={6}>
                             <DropzoneArea onUpload={addImageValue} />
                             <Button
+                                id="submit"
                                 type="submit"
                                 fullWidth
                                 variant="contained"

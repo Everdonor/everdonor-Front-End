@@ -6,7 +6,7 @@ import Switch from '@material-ui/core/Switch';
 import { makeStyles } from "@material-ui/core/styles";
 import EverdonorAPI from "api-client/EverdonorAPI";
 import { useRouter } from "next/router";
-
+import useCurrentUser from 'utils/useCurrentUser'
 
 const useStyles = makeStyles((theme) => ({
   moveLeft: {
@@ -19,6 +19,7 @@ export default function ProfileAndModify() {
   const router = useRouter();
   const [user, setUser] = useState({});
   const [willModify, setWillModify] = useState(false);
+  const [currentUser] = useCurrentUser()
 
   useEffect(() => {
     EverdonorAPI.searchById(router.query.id).then((resData) =>
@@ -29,14 +30,18 @@ export default function ProfileAndModify() {
   return (
     <div>
       <div className={classes.moveLeft}>
-        <Switch
-          checked={willModify}
-          onChange={() => setWillModify(!willModify)}
-          color="primary"
-          name="checkedB"
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        Modificar
+        {currentUser && user.email === currentUser.sub &&
+          <>
+            < Switch
+              checked={willModify}
+              onChange={() => setWillModify(!willModify)}
+              color="primary"
+              name="checkedB"
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
+          Modificar
+          </>
+        }
       </div>
       {
         willModify

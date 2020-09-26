@@ -41,7 +41,7 @@ export default function SignIn() {
 
     const login = (e) => {
         e.preventDefault();
-        API.loginUser(form).then(resp => console.log(resp))
+        API.loginUser(form).then(resp => localStorage.setItem('token', resp.authorization.slice(7)))
     }
 
     return (
