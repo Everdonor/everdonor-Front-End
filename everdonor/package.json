@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@geist-ui/react": "^2.0.1",
@@ -19,6 +20,7 @@
     "cypress": "^5.0.0",
     "fontsource-roboto": "^3.0.3",
     "here-maps-react": "^2.0.0",
+    "jwt-decode": "^3.0.0-beta.2",
     "material-ui-dropzone": "^3.4.0",
     "next": "9.3.5",
     "next-i18next": "^4.5.0",
@@ -30,5 +32,8 @@
     "react-map-gl-geocoder": "^2.1.2",
     "react-query": "^2.5.4",
     "react-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "cypress-file-upload": "^4.1.1"
   }
 }
