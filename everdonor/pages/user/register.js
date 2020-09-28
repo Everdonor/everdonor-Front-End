@@ -40,7 +40,7 @@ export default function SignIn() {
     const [coordenate, setCoordenates] = useState();
     const router = useRouter()
 
-    const sendForm = () => {
+    const sendForm = (event) => {
         event.preventDefault()
         API.createUser({ ...form, ...coordenate }).then(router.push("/map"))
     }
@@ -56,7 +56,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Registrate!
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={sendForm}>
+                <form className={classes.form} onSubmit={sendForm}>
                     <Grid
                         container
                         direction="row"
@@ -121,6 +121,7 @@ export default function SignIn() {
                             <TextField
                                 id="donation"
                                 select
+                                required
                                 label="Tipo de donacion"
                                 fullWidth
                                 onChange={addOrUpdateValue("donationType")}
@@ -147,7 +148,7 @@ export default function SignIn() {
                         </Grid>
                         <br />
                         <Grid item xs={6}>
-                            <MapWithSearch height="30vh" setCoordenates={manipulateCoordenates} />
+                            <MapWithSearch height="32vh" setCoordenates={manipulateCoordenates} />
                             <br />
                         </Grid>
                         <Grid item xs={6}>

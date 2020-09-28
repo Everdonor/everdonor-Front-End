@@ -41,7 +41,7 @@ export default function SignIn() {
 
     const login = (e) => {
         e.preventDefault();
-        API.loginUser(form).then(resp => localStorage.setItem('token', resp.authorization.slice(7)))
+        API.loginUser(form).then(resp => localStorage.setItem('token', resp.authorization.slice(7))).then(router.push("/map"))
     }
 
     return (
@@ -51,7 +51,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Entra!
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={login}>
+                <form className={classes.form} onSubmit={login}>
                     <TextField
                         variant="outlined"
                         margin="normal"
