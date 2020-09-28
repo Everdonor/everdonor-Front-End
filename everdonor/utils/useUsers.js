@@ -16,10 +16,15 @@ export default function useUsers() {
             .then(resData => setUsers(resData))
     }
 
+    const searchByRadius = (name) => {
+        EverdonorAPI.searchByRadius(name)
+            .then(resData => setUsers(resData))
+    }
+
     useEffect(() => {
         EverdonorAPI.getUsers()
             .then(resData => setUsers(resData))
     }, []);
 
-    return [users, searchByName, searchByType]
+    return [users, searchByName, searchByType, searchByRadius]
 }

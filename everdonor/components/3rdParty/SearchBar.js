@@ -12,6 +12,15 @@ const Types = [
     { name: "Ayuda economica", value: "Funding" },
 ]
 
+const Ranges = [
+    { value: 1 },
+    { value: 3 },
+    { value: 5 },
+    { value: 10 },
+    { value: 25 },
+    { value: 50 },
+    { value: 100 }
+]
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,13 +39,16 @@ const useStyles = makeStyles((theme) => ({
     iconButton: {
         padding: 10,
     },
+    paddingLeft: {
+        marginLeft: 10
+    },
     divider: {
         height: 28,
         margin: 4,
     },
 }));
 
-export default function CustomizedInputBase({ onClick, onChange }) {
+export default function CustomizedInputBase({ onClick, onChangeType, onChangeRadius }) {
     const classes = useStyles();
     const [name, setName] = useState("")
 
@@ -58,10 +70,21 @@ export default function CustomizedInputBase({ onClick, onChange }) {
             </IconButton>
             <Select
                 native
-                onChange={evt => onChange(evt.target.value)}
+                onChange={evt => onChangeType(evt.target.value)}
+                className={classes.paddingLeft}
             >
                 {Types.map(type =>
                     <option value={type.value}>{type.name}</option>
+                )
+                }
+            </Select>
+            <Select
+                native
+                onChange={evt => onChangeRadius(evt.target.value)}
+                className={classes.paddingLeft}
+            >
+                {Ranges.map(type =>
+                    <option value={type.value}>{type.value} Km</option>
                 )
                 }
             </Select>

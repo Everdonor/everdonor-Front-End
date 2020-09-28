@@ -17,7 +17,7 @@ const geolocateStyle = {
 
 export default function Map() {
   const [location, setLocation] = useGeolocation();
-  const [users, searchByName, searchByType] = useUsers([]);
+  const [users, searchByName, searchByType, searchByRadius] = useUsers([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
 
@@ -27,6 +27,10 @@ export default function Map() {
 
   const onChangeSelect = (value) => {
     searchByType(value);
+  };
+
+  const onChangeRadius = (value) => {
+    searchByRadius({ ...location, distance: value });
   };
 
   const _onClickMarker = ({ user }) => {
@@ -44,7 +48,7 @@ export default function Map() {
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
-          <SearchBar onClick={onClickSearch} onChange={onChangeSelect} />
+          <SearchBar onClick={onClickSearch} onChangeType={onChangeSelect} onChangeRadius={onChangeRadius} />
           <GeolocateControl
             style={geolocateStyle}
             positionOptions={{ enableHighAccuracy: true }}
