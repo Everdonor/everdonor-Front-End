@@ -5,8 +5,12 @@ import {
     Grid,
     Paper,
     Typography,
+    Tooltip,
+    Button
 } from "@material-ui/core";
+import Zoom from '@material-ui/core/Zoom';
 import { makeStyles } from "@material-ui/core/styles";
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 
 import MapWithSearch from "components/3rdParty/MapWithSearch"
 
@@ -66,6 +70,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile({ user }) {
     const classes = useStyles();
 
+    const openBrowser = () => {
+        var win = window.open(`https://wa.me/549${user.phoneNumber}?text=Hola%20me%20interesa%20donar!`, '_blank', "", false);
+        win.focus();
+    }
+
     return (
         <Container component="main">
             <CssBaseline />
@@ -101,6 +110,11 @@ export default function Profile({ user }) {
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1">
                                         Número de telefono
+                                        <Tooltip TransitionComponent={Zoom} title="Comunicarse por Whatsapp" arrow >
+                                            <a style={{ cursor: "pointer" }} onClick={openBrowser}>
+                                                <WhatsAppIcon style={{ color: "green", marginLeft: "10px" }} />
+                                            </a>
+                                        </Tooltip>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {user.phoneNumber}
