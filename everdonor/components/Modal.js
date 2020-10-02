@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
         },
+        display: "flex",
+        margin: "auto",
     },
     avatar: {
         backgroundColor: blue[100],

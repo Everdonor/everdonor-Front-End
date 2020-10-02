@@ -15,6 +15,7 @@ import API from "api-client/EverdonorAPI"
 import { makeStyles } from "@material-ui/core/styles";
 import useForm from "utils/useForm"
 import Modal from 'components/Modal'
+import UpdatePasswordModal from 'components/UpdatePasswordModal'
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MapWithSearch from "components/3rdParty/MapWithSearch"
 
@@ -92,6 +93,7 @@ export default function Modify({ user }) {
     const classes = useStyles();
     const router = useRouter();
     const [open, setOpen] = useState(false);
+    const [openPasswordChange, setOpenPasswordChange] = useState(false);
     const [form, addOrUpdateValue, addImageValue] = useForm(user);
 
     const [coordenate, setCoordenates] = useState({ latitude: form.latitude, longitude: form.longitude })
@@ -114,6 +116,9 @@ export default function Modify({ user }) {
             <Modal open={open} onAccept={modifyUser} onClose={() => setOpen(false)} title="Inserte Contraseña para confirmar">
                 <TextField id="outlined-basic" type="password" onChange={addOrUpdateValue("password")} variant="outlined" className={classes.profileCard} />
             </Modal>
+
+            <UpdatePasswordModal open={openPasswordChange} onCloseModal={() => setOpenPasswordChange(false)} userId={user.id} />
+
             <div className={classes.paper}>
                 <Typography className={classes.title} component="h1" variant="h5">
                     Perfil
@@ -125,6 +130,15 @@ export default function Modify({ user }) {
                             <Grid item container className={classes.profileCardImage}>
                                 <DropzoneArea onUpload={addImageValue} />
                                 <TextField id="outlined-basic" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" className={classes.profileCard} />
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => setOpenPasswordChange(true)}
+                                    className={classes.submit}
+                                >
+                                    Cambiar contraseña
+                                    </Button>
                             </Grid>
                         </Paper>
                     </Grid>
