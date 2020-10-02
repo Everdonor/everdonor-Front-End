@@ -5,11 +5,18 @@ export default function useUsers() {
 
     const [user, setUser] = useState();
 
+    const deleteUser = () => {
+        localStorage.removeItem('token')
+        setUser(null)
+    }
+
     useEffect(() => {
         const token = localStorage.getItem('token')
-        const decoded = jwt_decode(token);
-        setUser(decoded)
+        if (token) {
+            const decoded = jwt_decode(token);
+            setUser(decoded)
+        }
     }, [])
 
-    return [user]
+    return [user, deleteUser]
 }

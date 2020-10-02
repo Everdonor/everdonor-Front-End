@@ -21,7 +21,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InboxIcon from "@material-ui/icons/Inbox";
 import EntityCard from "./Card";
 import useUsers from "utils/useUsers";
-import MailIcon from "@material-ui/icons/Mail";
+import useCurrentUser from 'utils/useCurrentUser'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from "@material-ui/icons/Menu";
 import MapIcon from "@material-ui/icons/Map";
 import HomeIcon from "@material-ui/icons/Home";
@@ -93,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
   },
   Icon: {
     height: 64,
-    marginLeft: "auto",
   },
   appColor: {
     backgroundColor: "#f5f5e6",
@@ -103,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const theme = useTheme();
+  const [currentUser, deleteUser] = useCurrentUser()
 
   const [isOpenSideMenu, setIsOpenSideMenu] = useState(false);
   const router = useRouter();
@@ -179,11 +180,24 @@ export default function Header() {
               <AccountCircleIcon className={classes.spaceIcons} />
               Login
             </IconButton>
-            <img
-              src={"/large_everdonor.png"}
-              alt={"icono"}
-              className={classes.Icon}
-            />
+            <div style={{ marginLeft: "auto" }}>
+              {currentUser &&
+                <IconButton
+                  style={{ marginTop: "-50px" }}
+                  onClick={deleteUser}
+                  className={classes.menuButton}
+                  aria-label="open drawer"
+                  edge="end"
+                >
+                  <ExitToAppIcon className={classes.spaceIcons} />
+                </IconButton>
+              }
+              <img
+                src={"/large_everdonor.png"}
+                alt={"icono"}
+                className={classes.Icon}
+              />
+            </div>
           </Grid>
         </Toolbar>
       </AppBar>

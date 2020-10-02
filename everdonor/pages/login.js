@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -38,10 +38,17 @@ export default function SignIn() {
     const classes = useStyles();
     const [form, addOrUpdateValue] = useForm();
     const router = useRouter()
+    const [error, setError] = useState()
+
 
     const login = (e) => {
-        e.preventDefault();
-        API.loginUser(form).then(resp => localStorage.setItem('token', resp.authorization.slice(7))).then(router.push("/map"))
+        e.preventDefault()
+        API.loginUser(form)
+            .then(resp => localStorage.setItem('token', resp.authorization.slice(7)))
+            .then(() => router.push("/map"))
+            .catch((err) => {
+                setError(err)
+            })
     }
 
     return (
@@ -76,6 +83,12 @@ export default function SignIn() {
                         onChange={addOrUpdateValue("password")}
                         autoComplete="current-password"
                     />
+                    {error &&
+                        <Typography variant="h6" style={{ color: "red" }} gutterBottom>
+                            Contraseña o mail incorrecto
+                        </Typography>
+                    }
+
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"

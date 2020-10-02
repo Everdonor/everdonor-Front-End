@@ -42,7 +42,7 @@ export default function SignIn() {
 
     const sendForm = (event) => {
         event.preventDefault()
-        API.createUser({ ...form, ...coordenate }).then(router.push("/map"))
+        API.createUser({ ...form, ...coordenate }).then(router.push("/login"))
     }
 
     const manipulateCoordenates = ({ latitude, longitude }) => {
