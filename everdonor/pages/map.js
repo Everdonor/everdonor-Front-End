@@ -25,7 +25,14 @@ export default function Map() {
     searchByName(name);
   };
 
-  const onChangeSelect = (value) => {
+  const onChangeSelect = (target) => {
+    const { options } = target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
     searchByType(value);
   };
 

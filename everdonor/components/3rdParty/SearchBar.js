@@ -69,8 +69,9 @@ export default function CustomizedInputBase({ onClick, onChangeType, onChangeRad
                 <SearchIcon />
             </IconButton>
             <Select
+                multiple
                 native
-                onChange={evt => onChangeType(evt.target.value)}
+                onChange={evt => onChangeType(evt.target)}
                 className={classes.paddingLeft}
             >
                 {Types.map(type =>

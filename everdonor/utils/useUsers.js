@@ -11,8 +11,8 @@ export default function useUsers() {
             .then(resData => setUsers(resData))
     }
 
-    const searchByType = (name) => {
-        EverdonorAPI.searchByType(name)
+    const searchByType = (typeList) => {
+        EverdonorAPI.searchByType(typeList)
             .then(resData => setUsers(resData))
     }
 
