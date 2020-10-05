@@ -5,6 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from '@material-ui/core/Select';
+import { Chip, FormControl, Input, InputLabel, MenuItem } from '@material-ui/core';
 
 const Types = [
     { name: "Comida", value: "Food" },
@@ -28,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
-        width: 400,
+        width: 600,
         zIndex: 1000,
-        marginLeft: 750
+        marginLeft: 550
     },
     input: {
         marginLeft: theme.spacing(1),
@@ -46,9 +47,20 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 220,
+    },
+    rangeFormControl: {
+        margin: theme.spacing(1),
+        minWidth: 80,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
 }));
 
-export default function CustomizedInputBase({ onClick, onChangeType, onChangeRadius }) {
+export default function CustomizedInputBase({ onClick, onChangeType, onChangeRadius, selectedTypes, selectedRange }) {
     const classes = useStyles();
     const [name, setName] = useState("")
 
@@ -68,27 +80,42 @@ export default function CustomizedInputBase({ onClick, onChangeType, onChangeRad
             <IconButton type="submit" onClick={(evt) => sendName(evt, name)} className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
+            <FormControl className={classes.formControl}>
+            <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
             <Select
+                labelId="donation-chip-label"
+                id="donation"
+                onChange={onChangeType}
                 multiple
-                native
-                onChange={evt => onChangeType(evt.target)}
-                className={classes.paddingLeft}
-            >
+                value={selectedTypes}
+                input={<Input id="select-multiple-chip" />}
+                renderValue={(selected) => (
+                    <div className={classes.chips}>
+                    {selected.map((option) => (
+                        <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+                        ))}
+                    </div>
+                )}>
                 {Types.map(type =>
-                    <option value={type.value}>{type.name}</option>
-                )
-                }
+                    <MenuItem key={type.value} value={type.value}>
+                        {type.name}
+                    </MenuItem>)}
             </Select>
+            </FormControl>
+            <FormControl className={classes.rangeFormControl}>
+            <InputLabel>Distancia</InputLabel>
             <Select
-                native
+                labelId="range-label"
+                id="range"
+                value={selectedRange}
                 onChange={evt => onChangeRadius(evt.target.value)}
-                className={classes.paddingLeft}
             >
                 {Ranges.map(type =>
-                    <option value={type.value}>{type.value} Km</option>
+                    <MenuItem value={type.value}>{type.value} Km</MenuItem>
                 )
                 }
             </Select>
+            </FormControl>
         </Paper>
     );
 }
