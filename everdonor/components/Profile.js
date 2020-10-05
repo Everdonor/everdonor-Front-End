@@ -119,9 +119,9 @@ export default function Profile({ user }) {
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {user.phoneNumber}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    {/* <Typography variant="body2" color="textSecondary">
                                         Horarios de contacto: ADD TO USER
-                                    </Typography>
+                                    </Typography> */}
                                     <Typography gutterBottom variant="subtitle1">
                                         Dirección
                                     </Typography>
@@ -132,7 +132,7 @@ export default function Profile({ user }) {
                                         Tipos de donación que acepta
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
-                                        {user.donationType}
+                                        {user.donationTypes}
                                     </Typography>
 
                                     <MapWithSearch coordenates={{ latitude: user.latitude, longitude: user.longitude }} disableClick={true} />

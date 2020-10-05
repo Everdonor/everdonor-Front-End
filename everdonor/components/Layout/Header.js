@@ -144,7 +144,7 @@ export default function Header() {
               <MapIcon className={classes.spaceIcons} />
               Mapa
             </IconButton>
-            <IconButton
+            {!currentUser && <IconButton
               onClick={() => sendTo("user/register")}
               className={classes.menuButton}
               aria-label="open drawer"
@@ -152,7 +152,7 @@ export default function Header() {
             >
               <AddCircleIcon className={classes.spaceIcons} />
               Mostrate!
-            </IconButton>
+            </IconButton>}
             {/* <IconButton
               onClick={() => sendTo("user/profile")}
               className={classes.menuButton}
@@ -171,7 +171,7 @@ export default function Header() {
               <HomeIcon className={classes.spaceIcons} />
               Nosotros
             </IconButton>
-            <IconButton
+            {!currentUser && <IconButton
               onClick={() => sendTo("login")}
               className={classes.menuButton}
               aria-label="open drawer"
@@ -179,7 +179,7 @@ export default function Header() {
             >
               <AccountCircleIcon className={classes.spaceIcons} />
               Login
-            </IconButton>
+            </IconButton>}
             <div style={{ marginLeft: "auto" }}>
               {currentUser &&
                 <IconButton

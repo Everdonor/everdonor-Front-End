@@ -9,6 +9,7 @@ import {
     TextField,
     MenuItem,
     Button,
+    Select, Chip
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import API from "api-client/EverdonorAPI"
@@ -21,11 +22,10 @@ import MapWithSearch from "components/3rdParty/MapWithSearch"
 
 
 const types = [
-    { name: "Comida", value: "Food" },
-    { name: "Ropa", value: "Clothes" },
-    { name: "Ayuda economica", value: "Funding" },
+    { name: "Comida", value: "FOOD" },
+    { name: "Ropa", value: "CLOTHES" },
+    { name: "Ayuda economica", value: "FUNDING" },
 ]
-
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -162,12 +162,22 @@ export default function Modify({ user }) {
                                     </Typography>
                                     <TextField id="outlined-basic" defaultValue={form.address} onChange={addOrUpdateValue("address")} variant="outlined" className={classes.profileCard} />
                                     <br />
-                                    <TextField
+                                    <Select
                                         id="standard-select-currency"
                                         select
+                                        multiple
                                         label="Tipo de donacion"
                                         fullWidth
-                                        onChange={addOrUpdateValue("donationType")}
+                                        variant="outlined"
+                                        value={form.donationTypes}
+                                        onChange={addOrUpdateValue("donationTypes")}
+                                        renderValue={(selected) => (
+                                            <div className={classes.chips}>
+                                            {selected.map((option) => (
+                                                <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
+                                            ))}
+                                            </div>
+                                        )}
                                         helperText="Por favor seleccione que tipo de donacion necesita"
                                     >
                                         {types.map((option) => (
@@ -175,7 +185,7 @@ export default function Modify({ user }) {
                                                 {option.name}
                                             </MenuItem>
                                         ))}
-                                    </TextField>
+                                    </Select>
 
                                     <MapWithSearch setCoordenates={manipulateCoordenates} />
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useForm from "utils/useForm"
-import { Grid, Button, CssBaseline, TextField, Typography, makeStyles, Container } from '@material-ui/core';
+import { Grid, Button, CssBaseline, TextField, Typography, makeStyles, Container, Select, Chip, InputLabel } from '@material-ui/core';
 import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-    const [form, addOrUpdateValue, addImageValue] = useForm();
+    const [form, addOrUpdateValue, addImageValue] = useForm({donationTypes: []});
     const [coordenate, setCoordenates] = useState();
     const router = useRouter()
 
@@ -118,13 +118,23 @@ export default function SignIn() {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
+                            <InputLabel id="donation-label">Tipo de donacion</InputLabel>
+                            <Select
                                 id="donation"
                                 select
+                                multiple
                                 required
-                                label="Tipo de donacion"
                                 fullWidth
-                                onChange={addOrUpdateValue("donationType")}
+                                variant="outlined"
+                                value={form.donationTypes}
+                                onChange={addOrUpdateValue("donationTypes")}
+                                renderValue={(selected) => (
+                                    <div className={classes.chips}>
+                                      {selected.map((option) => (
+                                        <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
+                                      ))}
+                                    </div>
+                                  )}
                                 helperText="Por favor seleccione que tipo de donacion necesita"
                             >
                                 {types.map((option) => (
@@ -132,7 +142,7 @@ export default function SignIn() {
                                         {option.name}
                                     </MenuItem>
                                 ))}
-                            </TextField>
+                            </Select>
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
