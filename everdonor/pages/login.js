@@ -95,6 +95,7 @@ export default function SignIn() {
                     />
                     <Button
                         type="submit"
+                        id="submit"
                         fullWidth
                         variant="contained"
                         color="primary"

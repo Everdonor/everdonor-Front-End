@@ -20,16 +20,26 @@ export default function Map() {
   const [users, searchByName, searchByType, searchByRadius] = useUsers([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
+  const [selectedTypes, setSelectedTypes] = useState([])
+  const [selectedRange, setSelectedRange] = useState("")
 
   const onClickSearch = (name) => {
     searchByName(name);
   };
 
-  const onChangeSelect = (value) => {
+  const onChangeSelect = ({target}) => {
+    const value = target.value;
+    for (let i = 0, l = value.length; i < l; i += 1) {
+      if (value[i].selected) {
+        value.push(value[i].value);
+      }
+    }
+    setSelectedTypes(value);
     searchByType(value);
   };
 
   const onChangeRadius = (value) => {
+    setSelectedRange(value);
     searchByRadius({ ...location, distance: value });
   };
 
@@ -48,7 +58,8 @@ export default function Map() {
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
-          <SearchBar onClick={onClickSearch} onChangeType={onChangeSelect} onChangeRadius={onChangeRadius} />
+          <SearchBar onClick={onClickSearch} onChangeType={onChangeSelect} onChangeRadius={onChangeRadius} 
+            selectedTypes={selectedTypes} selectedRange={selectedRange}/>
           <GeolocateControl
             style={geolocateStyle}
             positionOptions={{ enableHighAccuracy: true }}

@@ -6,6 +6,7 @@ export default function useUsers(value = {}) {
 
     const addOrUpdateValue = (name) => ({ target: { value } }) => {
         setForm({ ...form, [name]: value })
+        console.log(form);
     }
 
     const addImageValue = (value) => {
