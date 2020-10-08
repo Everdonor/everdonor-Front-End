@@ -36,13 +36,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-    const [form, addOrUpdateValue, addImageValue] = useForm({donationTypes: []});
+    const [form, addOrUpdateValue, addImageValue] = useForm({ donationTypes: [] });
     const [coordenate, setCoordenates] = useState();
     const router = useRouter()
+    const [error, setError] = useState()
 
     const sendForm = (event) => {
         event.preventDefault()
-        API.createUser({ ...form, ...coordenate }).then(router.push("/login"))
+        API.createUser({ ...form, ...coordenate })
+            .then(() => router.push("/login"))
+            .catch((err) => {
+                setError(err)
+            })
     }
 
     const manipulateCoordenates = ({ latitude, longitude }) => {
@@ -53,6 +58,11 @@ export default function SignIn() {
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
+                {error &&
+                    <Typography variant="h6" style={{ color: "red" }} gutterBottom>
+                        Ocurrio un error, intenta de nuevo en unos minutos!
+                        </Typography>
+                }
                 <Typography component="h1" variant="h5">
                     Registrate!
                 </Typography>
@@ -130,11 +140,11 @@ export default function SignIn() {
                                 onChange={addOrUpdateValue("donationTypes")}
                                 renderValue={(selected) => (
                                     <div className={classes.chips}>
-                                      {selected.map((option) => (
-                                        <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
-                                      ))}
+                                        {selected.map((option) => (
+                                            <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
+                                        ))}
                                     </div>
-                                  )}
+                                )}
                                 helperText="Por favor seleccione que tipo de donacion necesita"
                             >
                                 {types.map((option) => (

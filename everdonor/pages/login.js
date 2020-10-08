@@ -46,6 +46,7 @@ export default function SignIn() {
         API.loginUser(form)
             .then(resp => localStorage.setItem('token', resp.authorization.slice(7)))
             .then(() => router.push("/map"))
+            .then(() => window.location.reload(true))
             .catch((err) => {
                 setError(err)
             })
@@ -56,7 +57,7 @@ export default function SignIn() {
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
-                    Entra!
+                    Ingresa a tu cuenta!
                 </Typography>
                 <form className={classes.form} onSubmit={login}>
                     <TextField

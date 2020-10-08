@@ -153,15 +153,6 @@ export default function Header() {
               <AddCircleIcon className={classes.spaceIcons} />
               Mostrate!
             </IconButton>}
-            {/* <IconButton
-              onClick={() => sendTo("user/profile")}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <AccountCircleIcon className={classes.spaceIcons} />
-              Perfil
-            </IconButton> */}
             <IconButton
               onClick={() => sendTo("")}
               className={classes.menuButton}
