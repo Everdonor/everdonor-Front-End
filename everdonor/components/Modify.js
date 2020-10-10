@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+    InputLabel,
     Avatar,
     Container,
     CssBaseline,
@@ -154,38 +155,38 @@ export default function Modify({ user }) {
                                         Número de telefono
                                     </Typography>
                                     <TextField id="outlined-basic" defaultValue={form.phoneNumber} onChange={addOrUpdateValue("phoneNumber")} variant="outlined" className={classes.profileCard} />
-                                    {/* <Typography variant="body2" color="textSecondary">
-                                        Horarios de contacto: ADD TO USER
-                                    </Typography> */}
                                     <Typography gutterBottom variant="subtitle1">
                                         Dirección
                                     </Typography>
                                     <TextField id="outlined-basic" defaultValue={form.address} onChange={addOrUpdateValue("address")} variant="outlined" className={classes.profileCard} />
                                     <br />
+                                    <InputLabel id="donation-label">Tipo de donacion</InputLabel>
                                     <Select
-                                        id="standard-select-currency"
+                                        id="donation"
                                         select
                                         multiple
-                                        label="Tipo de donacion"
+                                        required
                                         fullWidth
                                         variant="outlined"
                                         value={form.donationTypes}
                                         onChange={addOrUpdateValue("donationTypes")}
+                                        MenuProps={{ autoFocus: true }}
                                         renderValue={(selected) => (
                                             <div className={classes.chips}>
-                                            {selected.map((option) => (
-                                                <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
-                                            ))}
+                                                {selected.map((option) => (
+                                                    <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
+                                                ))}
                                             </div>
                                         )}
                                         helperText="Por favor seleccione que tipo de donacion necesita"
                                     >
                                         {types.map((option) => (
-                                            <MenuItem defaultValue={form.donationType} key={option.value} value={option.value}>
+                                            <MenuItem key={option.value} id={option.value} value={option.value}>
                                                 {option.name}
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                    <br />
 
                                     <MapWithSearch setCoordenates={manipulateCoordenates} />
 

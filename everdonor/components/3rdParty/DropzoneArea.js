@@ -22,6 +22,7 @@ export default function Dropzone({ onUpload, className }) {
     return (
         <div className={className}>
             <DropzoneArea
+                dropzoneText="Subi tu imagen haciendo click!"
                 inputProps={{ id: "testImg" }}
                 filesLimit={1}
                 accept="image/png"

@@ -103,13 +103,13 @@ export default function Profile({ user }) {
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
                                     <Typography gutterBottom variant="subtitle1">
-                                        Email
+                                        Email:
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom style={{ cursor: 'pointer' }}>
                                         {user.email}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1">
-                                        Número de telefono
+                                        Número de telefono:
                                         <Tooltip TransitionComponent={Zoom} title="Comunicarse por Whatsapp" arrow >
                                             <a style={{ cursor: "pointer" }} onClick={openBrowser}>
                                                 <WhatsAppIcon style={{ color: "green", marginLeft: "10px" }} />
@@ -119,17 +119,14 @@ export default function Profile({ user }) {
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {user.phoneNumber}
                                     </Typography>
-                                    {/* <Typography variant="body2" color="textSecondary">
-                                        Horarios de contacto: ADD TO USER
-                                    </Typography> */}
                                     <Typography gutterBottom variant="subtitle1">
-                                        Dirección
+                                        Dirección:
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {user.address}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1">
-                                        Tipos de donación que acepta
+                                        Tipos de donación que acepta:
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {user.donationTypes}
