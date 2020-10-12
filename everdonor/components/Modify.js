@@ -145,8 +145,8 @@ export default function Modify({ user }) {
                     </Grid>
                     <Grid item xs={8}>
                         <Paper className={classes.profileInformationCard}>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
+                            <Grid item xs container direction="row" spacing={2}>
+                                <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">
                                         Email
                                     </Typography>
@@ -155,6 +155,8 @@ export default function Modify({ user }) {
                                         Número de telefono
                                     </Typography>
                                     <TextField id="outlined-basic" defaultValue={form.phoneNumber} onChange={addOrUpdateValue("phoneNumber")} variant="outlined" className={classes.profileCard} />
+                                </Grid>
+                                <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">
                                         Dirección
                                     </Typography>
@@ -187,9 +189,12 @@ export default function Modify({ user }) {
                                         ))}
                                     </Select>
                                     <br />
+                                </Grid>
+                                <br />
 
+                                <Grid item xs={12}>
                                     <MapWithSearch setCoordenates={manipulateCoordenates} />
-
+                                    <br />
                                     <Button
                                         type="submit"
                                         variant="contained"

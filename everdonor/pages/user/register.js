@@ -166,23 +166,34 @@ export default function SignIn() {
                                 name="address"
                             />
                         </Grid>
-                        <br />
-                        <Grid item xs={6}>
-                            <MapWithSearch height="32vh" setCoordenates={manipulateCoordenates} />
-                            <br />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <DropzoneArea onUpload={addImageValue} />
-                            <Button
-                                id="submit"
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Aceptar
-                    </Button>
+
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                            spacing={3}
+                        >
+                            <Grid item xs={6}>
+                                <MapWithSearch height="33vh" setCoordenates={manipulateCoordenates} />
+
+                            </Grid>
+                            <Grid item xs={6}>
+                                <br />
+                                <br />
+                                <br />
+                                <DropzoneArea onUpload={addImageValue} />
+                                <Button
+                                    id="submit"
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Aceptar
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
 

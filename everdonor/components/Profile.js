@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "left",
         // color: theme.palette.text.secondary,
         whiteSpace: "nowrap",
+        paddingBottom: "40px",
         marginBottom: theme.spacing(1),
     },
     title: {
@@ -67,12 +68,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Profile({ user }) {
+const types = [
+    { name: "Comida", value: "FOOD" },
+    { name: "Ropa", value: "CLOTHES" },
+    { name: "Ayuda economica", value: "FUNDING" },
+]
+
+export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude } }) {
     const classes = useStyles();
 
     const openBrowser = () => {
-        var win = window.open(`https://wa.me/549${user.phoneNumber}?text=Hola%20me%20interesa%20donar!`, '_blank', "", false);
+        var win = window.open(`https://wa.me/549${phoneNumber}?text=Hola%20me%20interesa%20donar!`, '_blank', "", false);
         win.focus();
+    }
+    const parseDonation = (donation) => {
+        const element = types.find(({ value }) => value === donation)
+        return element.name
     }
 
     return (
@@ -89,24 +100,24 @@ export default function Profile({ user }) {
                             <Grid item container className={classes.profileCard}>
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src={user.image}
+                                    src={image}
                                     className={classes.largeAvatar}
                                 />
                                 <Typography variant="h5" className={classes.profileCard}>
-                                    {user.name}
+                                    {name}
                                 </Typography>
                             </Grid>
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
                         <Paper className={classes.profileInformationCard}>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
+                            <Grid item xs container direction="row" spacing={2}>
+                                <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">
                                         Email:
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom style={{ cursor: 'pointer' }}>
-                                        {user.email}
+                                        {email}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1">
                                         Número de telefono:
@@ -117,22 +128,32 @@ export default function Profile({ user }) {
                                         </Tooltip>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
-                                        {user.phoneNumber}
+                                        {phoneNumber}
                                     </Typography>
+                                </Grid>
+                                <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">
                                         Dirección:
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
-                                        {user.address}
+                                        {address}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1">
                                         Tipos de donación que acepta:
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" gutterBottom>
-                                        {user.donationTypes}
-                                    </Typography>
+                                    {donationTypes && donationTypes.map((donation) => {
+                                        return (
+                                            <Typography variant="body2" color="textSecondary" gutterBottom>
+                                                {parseDonation(donation)}
+                                            </Typography>
+                                        )
+                                    }
+                                    )}
 
-                                    <MapWithSearch coordenates={{ latitude: user.latitude, longitude: user.longitude }} disableClick={true} />
+
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <MapWithSearch label="Aca estas!" coordenates={{ latitude: latitude, longitude: longitude }} disableClick={true} height="50vh" />
                                 </Grid>
                             </Grid>
                         </Paper>
