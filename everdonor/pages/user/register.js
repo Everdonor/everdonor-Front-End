@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useForm from "utils/useForm"
-import { Grid, Button, CssBaseline, TextField, Typography, makeStyles, Container, Select, Chip, InputLabel } from '@material-ui/core';
+import { Grid, Button, CssBaseline, TextField, Typography, makeStyles, Container, Select, Chip, InputLabel, Link } from '@material-ui/core';
 import API from "api-client/EverdonorAPI"
 import DropzoneArea from "components/3rdParty/DropzoneArea";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -166,7 +166,24 @@ export default function SignIn() {
                                 name="address"
                             />
                         </Grid>
-
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                margin="left"
+                                style={{ width: "49%" }}
+                                onChange={addOrUpdateValue("todoPagoLink")}
+                                id="Link Todo Pago"
+                                label="Link de todo pago"
+                                name="Link de todo pago"
+                            />
+                        </Grid>
+                        <Grid container>
+                            <Grid item>
+                                <Link href="/docs" variant="body2">
+                                    {"Que es esto?"}
+                                </Link>
+                            </Grid>
+                        </Grid>
                         <Grid
                             container
                             direction="row"
