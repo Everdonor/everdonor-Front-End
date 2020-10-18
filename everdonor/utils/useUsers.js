@@ -6,18 +6,9 @@ export default function useUsers() {
 
     const [users, setUsers] = useState([]);
 
-    const searchByName = (name) => {
-        EverdonorAPI.searchByName(name)
-            .then(resData => setUsers(resData))
-    }
-
-    const searchByType = (typeList) => {
-        EverdonorAPI.searchByType(typeList)
-            .then(resData => setUsers(resData))
-    }
-
-    const searchByRadius = (name) => {
-        EverdonorAPI.searchByRadius(name)
+    const searchUsers = (parameters) => {
+        let request = {params: {...parameters}}
+        EverdonorAPI.getUsers(request)
             .then(resData => setUsers(resData))
     }
 
@@ -26,5 +17,5 @@ export default function useUsers() {
             .then(resData => setUsers(resData))
     }, []);
 
-    return [users, searchByName, searchByType, searchByRadius]
+    return [users, searchUsers]
 }
