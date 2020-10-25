@@ -17,17 +17,22 @@ const geolocateStyle = {
 
 export default function Map() {
   const [location, setLocation] = useGeolocation();
-  const [users, searchByName, searchByType, searchByRadius] = useUsers([]);
+  const [users, searchUsers] = useUsers([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
   const [selectedTypes, setSelectedTypes] = useState([])
   const [selectedRange, setSelectedRange] = useState("")
+  const [requestParams, setRequestParams] = useState({})
 
-  const onClickSearch = (name) => {
-    searchByName(name);
+  const sendRequest = () => {
+    searchUsers(requestParams);
+  }
+
+  const updateRequestWithName = (name) => {
+    setRequestParams({...requestParams, name: name});
   };
 
-  const onChangeSelect = ({target}) => {
+  const updateRequestWithSelectedTypes = ({target}) => {
     const value = target.value;
     for (let i = 0, l = value.length; i < l; i += 1) {
       if (value[i].selected) {
@@ -35,12 +40,12 @@ export default function Map() {
       }
     }
     setSelectedTypes(value);
-    searchByType(value);
+    setRequestParams({...requestParams, types: value})
   };
 
-  const onChangeRadius = (value) => {
+  const updateRequestWithSelectedRadius = (value) => {
     setSelectedRange(value);
-    searchByRadius({ ...location, distance: value });
+    setRequestParams({...requestParams, ...location, distance: value });
   };
 
   const _onClickMarker = ({ user }) => {
@@ -58,8 +63,12 @@ export default function Map() {
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
-          <SearchBar onClick={onClickSearch} onChangeType={onChangeSelect} onChangeRadius={onChangeRadius} 
-            selectedTypes={selectedTypes} selectedRange={selectedRange}/>
+          <SearchBar  onClick={sendRequest}
+                      onChangeName={updateRequestWithName} 
+                      onChangeType={updateRequestWithSelectedTypes} 
+                      onChangeRadius={updateRequestWithSelectedRadius} 
+                      selectedTypes={selectedTypes} 
+                      selectedRange={selectedRange}/>
           <GeolocateControl
             style={geolocateStyle}
             positionOptions={{ enableHighAccuracy: true }}

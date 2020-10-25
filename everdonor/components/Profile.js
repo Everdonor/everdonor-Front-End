@@ -74,7 +74,7 @@ const types = [
     { name: "Ayuda economica", value: "FUNDING" },
 ]
 
-export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude } }) {
+export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude, todoPagoLink } }) {
     const classes = useStyles();
 
     const openBrowser = () => {
@@ -130,6 +130,22 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {phoneNumber}
                                     </Typography>
+
+                                    {todoPagoLink !== "" &&
+                                        <a href={todoPagoLink}>
+                                            <div class="col-md-4 col-sm-4 col-xs-12 tipo-boton-class boton_solo" id="htmlBoton">
+                                                <Button
+                                                    type="submit"
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => { }}
+                                                    className={classes.submit}
+                                                >
+                                                    Dona!
+                                                </Button>
+                                            </div>
+                                        </a>
+                                    }
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
     InputLabel,
-    Avatar,
+    Link,
     Container,
     CssBaseline,
     Grid,
@@ -189,6 +189,24 @@ export default function Modify({ user }) {
                                         ))}
                                     </Select>
                                     <br />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="left"
+                                        style={{ width: "49%" }}
+                                        onChange={addOrUpdateValue("todoPagoLink")}
+                                        id="Link Todo Pago"
+                                        label="Link de todo pago"
+                                        name="Link de todo pago"
+                                    />
+                                </Grid>
+                                <Grid container>
+                                    <Grid item>
+                                        <Link href="/todoPago" variant="body2">
+                                            {"Que es esto?"}
+                                        </Link>
+                                    </Grid>
                                 </Grid>
                                 <br />
 
