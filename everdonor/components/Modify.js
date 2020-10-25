@@ -203,7 +203,7 @@ export default function Modify({ user }) {
                                 </Grid>
                                 <Grid container>
                                     <Grid item>
-                                        <Link href="/docs" variant="body2">
+                                        <Link href="/todoPago" variant="body2">
                                             {"Que es esto?"}
                                         </Link>
                                     </Grid>

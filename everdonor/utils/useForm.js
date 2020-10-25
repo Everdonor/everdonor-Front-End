@@ -6,12 +6,15 @@ export default function useUsers(value = {}) {
 
     const addOrUpdateValue = (name) => ({ target: { value } }) => {
         setForm({ ...form, [name]: value })
-        console.log(form);
+    }
+
+    const addLinkTodoPago = (value) => {
+        setForm({ ...form, todoPagoLink: value })
     }
 
     const addImageValue = (value) => {
         setForm({ ...form, image: value })
     }
 
-    return [form, addOrUpdateValue, addImageValue]
+    return [form, addOrUpdateValue, addImageValue, addLinkTodoPago]
 }

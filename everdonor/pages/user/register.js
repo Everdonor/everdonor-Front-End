@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-    const [form, addOrUpdateValue, addImageValue] = useForm({ donationTypes: [] });
+    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago] = useForm({ donationTypes: [] });
     const [coordenate, setCoordenates] = useState();
     const router = useRouter()
     const [error, setError] = useState()
@@ -54,14 +54,24 @@ export default function SignIn() {
         setCoordenates({ latitude, longitude })
     }
 
+    const sanitizeUrl = ({ target: { value } }) => {
+        var n = value.match(/<a href='(.*)'>/m);
+
+        if (n.lenght > 1 && n[1].includes("https://forms.todopago.com.ar")) {
+            addLinkTodoPago(n[1]);
+        } else {
+            setError({ message: "Link desconocido" })
+        }
+    }
+
     return (
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
                 {error &&
                     <Typography variant="h6" style={{ color: "red" }} gutterBottom>
-                        Ocurrio un error, intenta de nuevo en unos minutos!
-                        </Typography>
+                        {error.message ? error.message : "Ocurrio un error, intenta de nuevo en unos minutos!"}
+                    </Typography>
                 }
                 <Typography component="h1" variant="h5">
                     Registrate!
@@ -171,7 +181,7 @@ export default function SignIn() {
                                 variant="outlined"
                                 margin="left"
                                 style={{ width: "49%" }}
-                                onChange={addOrUpdateValue("todoPagoLink")}
+                                onChange={sanitizeUrl}
                                 id="Link Todo Pago"
                                 label="Link de todo pago"
                                 name="Link de todo pago"
@@ -179,7 +189,7 @@ export default function SignIn() {
                         </Grid>
                         <Grid container>
                             <Grid item>
-                                <Link href="/docs" variant="body2">
+                                <Link href="/todoPago" variant="body2">
                                     {"Que es esto?"}
                                 </Link>
                             </Grid>
