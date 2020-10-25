@@ -60,11 +60,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CustomizedInputBase({ onClick, onChangeType, onChangeRadius, selectedTypes, selectedRange }) {
+export default function CustomizedInputBase({ onClick, onChangeName, onChangeType, onChangeRadius, selectedTypes, selectedRange }) {
     const classes = useStyles();
-    const [name, setName] = useState("")
-
-    const sendName = (evt, name) => {
+    
+    const search = (evt, name) => {
         evt.preventDefault()
         onClick(name)
     }
@@ -74,10 +73,10 @@ export default function CustomizedInputBase({ onClick, onChangeType, onChangeRad
             <InputBase
                 className={classes.input}
                 placeholder="Buscar"
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => onChangeName(event.target.value)}
                 inputProps={{ 'aria-label': 'search google maps' }}
             />
-            <IconButton type="submit" onClick={(evt) => sendName(evt, name)} className={classes.iconButton} aria-label="search">
+            <IconButton type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
             <FormControl className={classes.formControl}>

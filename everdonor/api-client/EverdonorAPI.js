@@ -1,17 +1,16 @@
 import Axios from "axios";
+import Qs from "qs"
 
 const server = "http://localhost:8080/";
 
-
 const API = {
-    getUsers: () => Axios.get(`${server}users`).then(response => response.data),
-    searchByName: (name) => Axios.get(`${server}users?name=${name}`).then(response => response.data),
-    searchByType: (typeList) => {
-        var types = Object.keys(typeList).map(key => "types" + '=' + typeList[key]).join('&');
-        return Axios.get(`${server}users?${types}`).then(response => response.data);
-    },
+    getUsers: (request) => Axios.get(`${server}users`, 
+        {...request, 
+            paramsSerializer: function (params) {
+                return Qs.stringify(params, {arrayFormat: 'comma'})
+            },
+        }).then(response => response.data),
     searchById: (id) => Axios.get(`${server}users/${id}`).then(response => response.data),
-    searchByRadius: ({ longitude, latitude, distance }) => Axios.get(`${server}users?latitude=${latitude}&longitude=${longitude}&distance=${distance}`).then(response => response.data),
     createUser: (body) => Axios.post(`${server}sign-up`, { ...body }).then(response => response.data),
     loginUser: (body) => Axios.post(`${server}login`, { ...body }).then(response => response.headers),
     modifyUser: (body) => Axios.put(`${server}users/${body.id}`, { ...body }).then(response => response.data),
