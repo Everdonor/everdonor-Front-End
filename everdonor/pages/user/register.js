@@ -57,7 +57,8 @@ export default function SignIn() {
     const sanitizeUrl = ({ target: { value } }) => {
         var n = value.match(/<a href='(.*)'>/m);
 
-        if (n.lenght > 1 && n[1].includes("https://forms.todopago.com.ar")) {
+
+        if (n.length > 1 && n[1].includes("https://forms.todopago.com.ar")) {
             addLinkTodoPago(n[1]);
         } else {
             setError({ message: "Link desconocido" })

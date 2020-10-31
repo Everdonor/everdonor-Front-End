@@ -95,12 +95,24 @@ export default function Modify({ user }) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [openPasswordChange, setOpenPasswordChange] = useState(false);
-    const [form, addOrUpdateValue, addImageValue] = useForm(user);
+    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago] = useForm(user);
+    const [error, setError] = useState()
 
     const [coordenate, setCoordenates] = useState({ latitude: form.latitude, longitude: form.longitude })
 
     const manipulateCoordenates = ({ latitude, longitude }) => {
         setCoordenates({ latitude, longitude })
+    }
+
+    const sanitizeUrl = ({ target: { value } }) => {
+        var n = value.match(/<a href='(.*)'>/m);
+
+
+        if (n.length > 1 && n[1].includes("https://forms.todopago.com.ar")) {
+            addLinkTodoPago(n[1]);
+        } else {
+            setError({ message: "Link desconocido" })
+        }
     }
 
     const sendTo = (url) => {
@@ -121,6 +133,11 @@ export default function Modify({ user }) {
             <UpdatePasswordModal open={openPasswordChange} onCloseModal={() => setOpenPasswordChange(false)} userId={user.id} />
 
             <div className={classes.paper}>
+                {error &&
+                    <Typography variant="h6" style={{ color: "red" }} gutterBottom>
+                        {error.message ? error.message : "Ocurrio un error, intenta de nuevo en unos minutos!"}
+                    </Typography>
+                }
                 <Typography className={classes.title} component="h1" variant="h5">
                     Perfil
                 </Typography>
@@ -195,7 +212,7 @@ export default function Modify({ user }) {
                                         variant="outlined"
                                         margin="left"
                                         style={{ width: "49%" }}
-                                        onChange={addOrUpdateValue("todoPagoLink")}
+                                        onChange={sanitizeUrl}
                                         id="Link Todo Pago"
                                         label="Link de todo pago"
                                         name="Link de todo pago"
