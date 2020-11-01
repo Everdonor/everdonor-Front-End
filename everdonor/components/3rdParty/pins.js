@@ -9,6 +9,7 @@ export default function Pins({ data, onClick = () => { } }) {
     return data.map((user, index) => {
         return <Marker key={`marker-${user.id}`} longitude={user.longitude} latitude={user.latitude}>
             <img
+                id={`id_${user.name}_marker`}
                 src={`/${user.donationTypes[0]}.png`}
                 alt={"icono"}
                 height={SIZE}

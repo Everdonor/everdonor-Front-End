@@ -1,5 +1,5 @@
-describe('My First Test', () => {
-    it('Visits the Kitchen Sink', () => {
+describe('Create User', () => {
+    it('create a user', () => {
         cy.server()
         cy.route('POST', 'http://localhost:8080/sign-up').as('register')
 

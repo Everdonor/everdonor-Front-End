@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedInputBase({ onClick, onChangeName, onChangeType, onChangeRadius, selectedTypes, selectedRange }) {
     const classes = useStyles();
-    
+
     const search = (evt, name) => {
         evt.preventDefault()
         onClick(name)
@@ -71,49 +71,50 @@ export default function CustomizedInputBase({ onClick, onChangeName, onChangeTyp
     return (
         <Paper component="form" className={classes.root}>
             <InputBase
+                id="Name"
                 className={classes.input}
                 placeholder="Buscar"
                 onChange={(event) => onChangeName(event.target.value)}
                 inputProps={{ 'aria-label': 'search google maps' }}
             />
-            <IconButton type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
+            <IconButton id="SearchIcon" type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
             <FormControl className={classes.formControl}>
-            <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
-            <Select
-                labelId="donation-chip-label"
-                id="donation"
-                onChange={onChangeType}
-                multiple
-                value={selectedTypes}
-                input={<Input id="select-multiple-chip" />}
-                renderValue={(selected) => (
-                    <div className={classes.chips}>
-                    {selected.map((option) => (
-                        <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
-                        ))}
-                    </div>
-                )}>
-                {Types.map(type =>
-                    <MenuItem key={type.value} value={type.value}>
-                        {type.name}
-                    </MenuItem>)}
-            </Select>
+                <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
+                <Select
+                    labelId="donation-chip-label"
+                    id="donation"
+                    onChange={onChangeType}
+                    multiple
+                    value={selectedTypes}
+                    input={<Input id="select-multiple-chip" />}
+                    renderValue={(selected) => (
+                        <div className={classes.chips}>
+                            {selected.map((option) => (
+                                <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+                            ))}
+                        </div>
+                    )}>
+                    {Types.map(type =>
+                        <MenuItem key={type.value} value={type.value}>
+                            {type.name}
+                        </MenuItem>)}
+                </Select>
             </FormControl>
             <FormControl className={classes.rangeFormControl}>
-            <InputLabel>Distancia</InputLabel>
-            <Select
-                labelId="range-label"
-                id="range"
-                value={selectedRange}
-                onChange={evt => onChangeRadius(evt.target.value)}
-            >
-                {Ranges.map(type =>
-                    <MenuItem value={type.value}>{type.value} Km</MenuItem>
-                )
-                }
-            </Select>
+                <InputLabel>Distancia</InputLabel>
+                <Select
+                    labelId="range-label"
+                    id="range"
+                    value={selectedRange}
+                    onChange={evt => onChangeRadius(evt.target.value)}
+                >
+                    {Ranges.map(type =>
+                        <MenuItem value={type.value}>{type.value} Km</MenuItem>
+                    )
+                    }
+                </Select>
             </FormControl>
         </Paper>
     );
