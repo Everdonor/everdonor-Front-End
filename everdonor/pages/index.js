@@ -1,9 +1,6 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Paper, CssBaseline, Container, Button, Box } from '@material-ui/core';
-//import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 
 const useStyles = makeStyles((theme) => ({
     marginText: {
@@ -17,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
-    const router = useRouter();
-    // const direction = useMediaQuery(theme => theme.breakpoints.down('sm'));
-    // ... direction={direction ? 'column' : 'row'}
     return (
         <>
         <CssBaseline />
@@ -41,7 +35,7 @@ export default function Home() {
         <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center" alignItems="center">
             <Grid item>
-                <Button variant="contained" href="/map">Empezá a donar!</Button>
+                <Button variant="contained" color="primary" href="/map">Empezá a donar!</Button>
             </Grid>
             <Grid item>
                 <Button variant="outlined" href="#howItWorks" >¿Como Funciona?</Button>

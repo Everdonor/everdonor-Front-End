@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     height: 64,
   },
   appColor: {
-    backgroundColor: "#f5f5e6",
+    backgroundColor: theme.palette.background.default
   },
 }));
 
