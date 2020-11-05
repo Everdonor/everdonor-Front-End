@@ -177,24 +177,24 @@ export default function SignIn() {
                                 name="address"
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <TextField
                                 variant="outlined"
                                 margin="left"
-                                style={{ width: "49%" }}
+                                style={{ width: "100%" }}
                                 onChange={sanitizeUrl}
                                 id="Link Todo Pago"
                                 label="Link de todo pago"
                                 name="Link de todo pago"
                             />
                         </Grid>
-                        <Grid container>
-                            <Grid item>
-                                <Link href="/todoPago" variant="body2">
-                                    {"Que es esto?"}
-                                </Link>
-                            </Grid>
+
+                        <Grid item xs={6}>
+                            <Link href="/todoPago" variant="body2">
+                                {"Que es esto?"}
+                            </Link>
                         </Grid>
+
                         <Grid
                             container
                             direction="row"
