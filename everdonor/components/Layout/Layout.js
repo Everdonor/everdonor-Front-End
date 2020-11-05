@@ -1,10 +1,11 @@
-import Header from './Header';
+import MiniDrawer from './Drawer';
 
 function Layout({ children }) {
     return (
         <>
-            <Header />
-            <div>{children}</div>
+            <MiniDrawer>
+                {children}
+            </MiniDrawer>
         </>
     );
 }

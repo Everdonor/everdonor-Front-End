@@ -54,12 +54,13 @@ export default function Map() {
   };
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item xs={12}>
-        <ReactMapGL
+    <ReactMapGL
           {...location}
-          width="100vw"
-          height="calc(100vh - 64px)"
+          // width="calc(100vw - 240px)"
+          // width="calc(100vw - 57px)"
+          // height="calc(100vh - 64px)"
+          width="inherit"
+          height="inherit"
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
@@ -91,7 +92,5 @@ export default function Map() {
             </Popup>
           )}
         </ReactMapGL>
-      </Grid>
-    </Grid>
   );
 }

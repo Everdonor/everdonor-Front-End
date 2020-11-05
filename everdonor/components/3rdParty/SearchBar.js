@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from '@material-ui/core/Select';
-import { Chip, FormControl, Input, InputLabel, MenuItem } from '@material-ui/core';
+import { Button, Chip, FormControl, Input, InputLabel, MenuItem } from '@material-ui/core';
 
 const Types = [
     { name: "Comida", value: "Food" },
@@ -115,6 +115,7 @@ export default function CustomizedInputBase({ onClick, onChangeName, onChangeTyp
                 }
             </Select>
             </FormControl>
+            {/* <Button variant="contained" color="primary" disableElevation>Temporary drawer con todos los usuarios??</Button> */}
         </Paper>
     );
 }
