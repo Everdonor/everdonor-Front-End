@@ -6,6 +6,7 @@ import {
     Paper,
     Typography,
     Tooltip,
+    Link,
     Button
 } from "@material-ui/core";
 import Zoom from '@material-ui/core/Zoom';
@@ -74,7 +75,7 @@ const types = [
     { name: "Ayuda economica", value: "FUNDING" },
 ]
 
-export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude, todoPagoLink } }) {
+export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude, todoPagoLink, links } }) {
     const classes = useStyles();
 
     const openBrowser = () => {
@@ -151,6 +152,22 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {address}
                                     </Typography>
+
+                                    {links &&
+                                        <>
+                                            <Typography gutterBottom variant="subtitle1">
+                                                Links interesantes:
+                                            </Typography>
+                                            {links.map((links) =>
+                                                <Link>
+                                                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                                                        {links}
+                                                    </Typography>
+                                                </Link>
+                                            )}
+
+                                        </>
+                                    }
                                     <Typography gutterBottom variant="subtitle1">
                                         Tipos de donación que acepta:
                                     </Typography>
@@ -162,7 +179,6 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                         )
                                     }
                                     )}
-
 
                                 </Grid>
                                 <Grid item xs={12}>

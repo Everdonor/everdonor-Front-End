@@ -10,7 +10,7 @@ import {
     TextField,
     MenuItem,
     Button,
-    Select, Chip
+    Select, Chip, FormControl
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import API from "api-client/EverdonorAPI"
@@ -95,7 +95,7 @@ export default function Modify({ user }) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [openPasswordChange, setOpenPasswordChange] = useState(false);
-    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago] = useForm(user);
+    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago, addComaSeparated] = useForm(user);
     const [error, setError] = useState()
 
     const [coordenate, setCoordenates] = useState({ latitude: form.latitude, longitude: form.longitude })
@@ -162,65 +162,82 @@ export default function Modify({ user }) {
                         <Paper className={classes.profileInformationCard}>
                             <Grid item xs container direction="row" spacing={2}>
                                 <Grid item xs={6}>
-                                    <Typography gutterBottom variant="subtitle1">
-                                        Email
-                                    </Typography>
-                                    <TextField id="outlined-basic" defaultValue={form.email} onChange={addOrUpdateValue("email")} variant="outlined" className={classes.profileCard} />
-                                    <Typography gutterBottom variant="subtitle1">
-                                        Número de telefono
-                                    </Typography>
-                                    <TextField id="outlined-basic" defaultValue={form.phoneNumber} onChange={addOrUpdateValue("phoneNumber")} variant="outlined" className={classes.profileCard} />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom variant="subtitle1">
-                                        Dirección
-                                    </Typography>
-                                    <TextField id="outlined-basic" defaultValue={form.address} onChange={addOrUpdateValue("address")} variant="outlined" className={classes.profileCard} />
-                                    <br />
-                                    <InputLabel id="donation-label">Tipo de donacion</InputLabel>
-                                    <Select
-                                        id="donation"
-                                        select
-                                        multiple
-                                        required
-                                        fullWidth
+                                    <TextField id="outlined-basic"
+                                        defaultValue={form.email}
+                                        onChange={addOrUpdateValue("email")}
                                         variant="outlined"
-                                        value={form.donationTypes}
-                                        onChange={addOrUpdateValue("donationTypes")}
-                                        MenuProps={{ autoFocus: true }}
-                                        renderValue={(selected) => (
-                                            <div className={classes.chips}>
-                                                {selected.map((option) => (
-                                                    <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
-                                                ))}
-                                            </div>
-                                        )}
-                                        helperText="Por favor seleccione que tipo de donacion necesita"
-                                    >
-                                        {types.map((option) => (
-                                            <MenuItem key={option.value} id={option.value} value={option.value}>
-                                                {option.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
+                                        className={classes.profileCard}
+                                        label="Nombre"
+                                    />
                                     <br />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
+                                    <TextField id="outlined-basic"
+                                        defaultValue={form.phoneNumber}
+                                        onChange={addOrUpdateValue("phoneNumber")}
                                         variant="outlined"
-                                        margin="left"
-                                        style={{ width: "100%" }}
+                                        className={classes.profileCard}
+                                        label="Numero de telefono"
+                                    />
+                                    <br />
+                                    <TextField id="outlined-basic"
+                                        variant="outlined"
                                         onChange={sanitizeUrl}
-                                        id="Link Todo Pago"
+                                        className={classes.profileCard}
                                         label="Link de todo pago"
-                                        name="Link de todo pago"
+                                        helperText={<Link href="/todoPago" variant="body2">
+                                            {"Que es esto?"}
+                                        </Link>}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Link href="/todoPago" variant="body2">
-                                        {"Que es esto?"}
-                                    </Link>
+                                    <TextField id="outlined-basic" defaultValue={form.address}
+                                        onChange={addOrUpdateValue("address")}
+                                        variant="outlined"
+                                        style={{ paddingBottom: "9px" }}
+                                        className={classes.profileCard}
+                                        label="Direccion"
+                                    />
+                                    <br />
+                                    <TextField
+                                        defaultValue={form.links.toString()}
+                                        variant="outlined"
+                                        margin="left"
+                                        className={classes.profileCard}
+                                        onChange={addComaSeparated("links")}
+                                        id="Links utiles"
+                                        label="Links utiles(Facebook, pagina web, etc)"
+                                        name="Links utiles"
+                                        helperText="Links separados por coma"
+                                    />
+
+                                    <FormControl fullWidth>
+                                        <InputLabel id="donation-label">Tipo de donacion</InputLabel>
+                                        <Select
+                                            id="donation"
+                                            select
+                                            multiple
+                                            required
+                                            variant="outlined"
+                                            value={form.donationTypes}
+                                            onChange={addOrUpdateValue("donationTypes")}
+                                            MenuProps={{ autoFocus: true }}
+                                            renderValue={(selected) => (
+                                                <div className={classes.chips}>
+                                                    {selected.map((option) => (
+                                                        <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
+                                                    ))}
+                                                </div>
+                                            )}
+                                            helperText="Por favor seleccione que tipo de donacion necesita"
+                                        >
+                                            {types.map((option) => (
+                                                <MenuItem key={option.value} id={option.value} value={option.value}>
+                                                    {option.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
                                 </Grid>
+
                                 <br />
 
                                 <Grid item xs={12}>

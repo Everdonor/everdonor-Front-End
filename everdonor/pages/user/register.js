@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago] = useForm({ donationTypes: [] });
+    const [form, addOrUpdateValue, addImageValue, addLinkTodoPago, addComaSeparated] = useForm({ donationTypes: [] });
     const [coordenate, setCoordenates] = useState();
     const router = useRouter()
     const [error, setError] = useState()
@@ -64,6 +64,9 @@ export default function SignIn() {
             setError({ message: "Link desconocido" })
         }
     }
+
+
+
 
     return (
         <Container component="main">
@@ -187,12 +190,22 @@ export default function SignIn() {
                                 label="Link de todo pago"
                                 name="Link de todo pago"
                             />
-                        </Grid>
-
-                        <Grid item xs={6}>
                             <Link href="/todoPago" variant="body2">
                                 {"Que es esto?"}
                             </Link>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
+                                margin="left"
+                                style={{ width: "100%" }}
+                                onChange={addComaSeparated("links")}
+                                id="Links utiles"
+                                label="Links utiles(Facebook, pagina web, etc)"
+                                name="Links utiles"
+                            />
+                            Links separados por coma
                         </Grid>
 
                         <Grid
