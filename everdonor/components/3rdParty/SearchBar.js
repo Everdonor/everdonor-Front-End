@@ -84,6 +84,13 @@ const useStyles = makeStyles((theme) => ({
     // rangeFormControl: {
     //     minWidth: 100,
     // },
+    chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    chip: {
+        margin: 2,
+    },
 }));
 
 export default function SearchBar({ searchUsers, location }) {
@@ -130,7 +137,7 @@ export default function SearchBar({ searchUsers, location }) {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={3} direction={upXs ? "row" : "column"}>
+            <Grid container spacing={3} direction={upXs ? "row" : "column"} justify="flex-end">
                 <Grid item xs={12} sm={4}>
                     <Paper className={classes.paper}>
                         <Grid container spacing={2} direction="row">
@@ -153,48 +160,56 @@ export default function SearchBar({ searchUsers, location }) {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <Paper className={classes.paper}>
-                        <FormControl className={classes.formControl}> { /* TODO: check this class*/ }
-                            <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
-                            <Select
-                                labelId="donation-chip-label"
-                                id="donation"
-                                onChange={onChangeType}
-                                multiple
-                                value={selectedTypes}
-                                input={<Input id="select-multiple-chip" />}
-                                renderValue={(selected) => (
-                                    <div className={classes.chips}>
-                                        {selected.map((option) => (
-                                            <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
-                                        ))}
-                                    </div>
-                                )}>
-                                {Types.map(type =>
-                                    <MenuItem key={type.value} value={type.value}>
-                                        {type.name}
-                                    </MenuItem>)}
-                            </Select>
-                        </FormControl>
+                        <Grid container spacing={2} direction="row">
+                            <Grid item sm={8}>
+                                <FormControl className={classes.formControl}> { /* TODO: check this class*/ }
+                                    <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
+                                    <Select
+                                        labelId="donation-chip-label"
+                                        id="donation"
+                                        onChange={onChangeType}
+                                        multiple
+                                        value={selectedTypes}
+                                        input={<Input id="select-multiple-chip" />}
+                                        renderValue={(selected) => (
+                                            <div className={classes.chips}>
+                                                {selected.map((option) => (
+                                                    <Chip size="small" key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+                                                ))}
+                                            </div>
+                                        )}>
+                                        {Types.map(type =>
+                                            <MenuItem key={type.value} value={type.value}>
+                                                {type.name}
+                                            </MenuItem>)}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item sm={4}>                                
+                                <FormControl className={classes.rangeFormControl}> { /* TODO: check this class */ }
+                                    <InputLabel>Distancia</InputLabel>
+                                    <Select
+                                        labelId="range-label"
+                                        id="range"
+                                        value={selectedRange}
+                                        onChange={onChangeRadius}
+                                    >
+                                        {Ranges.map(type =>
+                                            <MenuItem value={type.value}>{type.value} Km</MenuItem>
+                                        )
+                                        }
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        
                     </Paper>
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                {/* <Grid item xs={12} sm={2}>
                     <Paper className={classes.paper}>
-                        <FormControl className={classes.rangeFormControl}> { /* TODO: check this class */ }
-                            <InputLabel>Distancia</InputLabel>
-                            <Select
-                                labelId="range-label"
-                                id="range"
-                                value={selectedRange}
-                                onChange={onChangeRadius}
-                            >
-                                {Ranges.map(type =>
-                                    <MenuItem value={type.value}>{type.value} Km</MenuItem>
-                                )
-                                }
-                            </Select>
-                        </FormControl>
+
                     </Paper>
-                </Grid>
+                </Grid> */}
             </Grid>
         </div>
     );
