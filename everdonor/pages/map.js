@@ -40,6 +40,7 @@ export default function Map() {
             positionOptions={{ enableHighAccuracy: true }}
             label={"Go to my location"}
             fitBoundsOptions={{ maxZoom: 15 }}
+            auto={true}
           />
           <Pins data={users} onClick={_onClickMarker} />
           {showPopUp && (
