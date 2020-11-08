@@ -1,11 +1,11 @@
-import MiniDrawer from './Drawer';
+import AppNavigationBars from './AppNavigationBars';
 
 function Layout({ children }) {
     return (
         <>
-            <MiniDrawer>
+            <AppNavigationBars>
                 {children}
-            </MiniDrawer>
+            </AppNavigationBars>
         </>
     );
 }

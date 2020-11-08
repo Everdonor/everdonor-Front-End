@@ -5,7 +5,7 @@ import useUsers from "utils/useUsers";
 import useGeolocation from "utils/useGeolocation";
 import EntityCard from "components/Layout/Card";
 import SearchBar from "components/3rdParty/SearchBar";
-import { Grid } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 const ApiKey = process.env.MAP_API;
 const geolocateStyle = {
@@ -17,36 +17,9 @@ const geolocateStyle = {
 
 export default function Map() {
   const [location, setLocation] = useGeolocation();
-  const [users, searchUsers] = useUsers([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
-  const [selectedTypes, setSelectedTypes] = useState([])
-  const [selectedRange, setSelectedRange] = useState("")
-  const [requestParams, setRequestParams] = useState({})
-
-  const sendRequest = () => {
-    searchUsers(requestParams);
-  }
-
-  const updateRequestWithName = (name) => {
-    setRequestParams({...requestParams, name: name});
-  };
-
-  const updateRequestWithSelectedTypes = ({target}) => {
-    const value = target.value;
-    for (let i = 0, l = value.length; i < l; i += 1) {
-      if (value[i].selected) {
-        value.push(value[i].value);
-      }
-    }
-    setSelectedTypes(value);
-    setRequestParams({...requestParams, types: value})
-  };
-
-  const updateRequestWithSelectedRadius = (value) => {
-    setSelectedRange(value);
-    setRequestParams({...requestParams, ...location, distance: value });
-  };
+  const [users, searchUsers] = useUsers([]);
 
   const _onClickMarker = ({ user }) => {
     setPopUpInfo(user);
@@ -56,20 +29,12 @@ export default function Map() {
   return (
     <ReactMapGL
           {...location}
-          // width="calc(100vw - 240px)"
-          // width="calc(100vw - 57px)"
-          // height="calc(100vh - 64px)"
           width="inherit"
           height="inherit"
           mapboxApiAccessToken={ApiKey}
           onViewportChange={(viewport) => setLocation(viewport)}
         >
-          <SearchBar  onClick={sendRequest}
-                      onChangeName={updateRequestWithName} 
-                      onChangeType={updateRequestWithSelectedTypes} 
-                      onChangeRadius={updateRequestWithSelectedRadius} 
-                      selectedTypes={selectedTypes} 
-                      selectedRange={selectedRange}/>
+          <SearchBar searchUsers={searchUsers} location={location} />
           <GeolocateControl
             style={geolocateStyle}
             positionOptions={{ enableHighAccuracy: true }}

@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from '@material-ui/core/Select';
-import { Button, Chip, FormControl, Input, InputLabel, MenuItem } from '@material-ui/core';
+import { Button, Chip, FormControl, Grid, Input, InputLabel, MenuItem } from '@material-ui/core';
 
 const Types = [
     { name: "Comida", value: "Food" },
@@ -31,9 +31,19 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 600,
         zIndex: 1000,
-        marginLeft: 550
+        [theme.breakpoints.down("sm")]: {
+            marginLeft: '10%',
+            width: '70%'
+        },
+        [theme.breakpoints.up("md")]: {
+            marginLeft: '30%'
+        },
+        [theme.breakpoints.up("lg")]: {
+            marginLeft: '45%'
+        },
     },
     input: {
+        paddingTop: '15px',
         marginLeft: theme.spacing(1),
         flex: 1,
     },
@@ -49,73 +59,124 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 220,
+        minWidth: 180,
+        // maxWidth: 250
     },
     rangeFormControl: {
         margin: theme.spacing(1),
-        minWidth: 80,
+        minWidth: 100,
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
 }));
 
-export default function CustomizedInputBase({ onClick, onChangeName, onChangeType, onChangeRadius, selectedTypes, selectedRange }) {
+export default function SearchBar({ searchUsers, location }) {
+    const [selectedTypes, setSelectedTypes] = useState([])
+    const [selectedRange, setSelectedRange] = useState("")
+    const [requestParams, setRequestParams] = useState({})
+  
     const classes = useStyles();
     
-    const search = (evt, name) => {
+    const sendRequest = () => {
+        searchUsers(requestParams);
+    }
+
+    const onChangeName = (event) => {
+        setRequestParams({...requestParams, name: event.target.value});
+    };
+
+    const onChangeType = (event) => {
+      const value = event.target.value;
+      for (let i = 0, l = value.length; i < l; i += 1) {
+        if (value[i].selected) {
+          value.push(value[i].value);
+        }
+      }
+      setSelectedTypes(value);
+      setRequestParams({...requestParams, types: value})
+      //SET EN OTRA FUNCION? para el search tardio
+    //   search(event)
+    };
+  
+    const onChangeRadius = (event) => {
+      const value = event.target.value;
+      setSelectedRange(value);
+      setRequestParams({...requestParams, ...location, distance: value });
+    //   search(event);
+    };
+
+    const search = (evt) => {
         evt.preventDefault()
-        onClick(name)
+        sendRequest()
     }
 
     return (
-        <Paper component="form" className={classes.root}>
+        <Paper>
             <InputBase
-                className={classes.input}
-                placeholder="Buscar"
-                onChange={(event) => onChangeName(event.target.value)}
-                inputProps={{ 'aria-label': 'search google maps' }}
-            />
-            <IconButton type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
-                <SearchIcon />
-            </IconButton>
-            <FormControl className={classes.formControl}>
-            <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
-            <Select
-                labelId="donation-chip-label"
-                id="donation"
-                onChange={onChangeType}
-                multiple
-                value={selectedTypes}
-                input={<Input id="select-multiple-chip" />}
-                renderValue={(selected) => (
-                    <div className={classes.chips}>
-                    {selected.map((option) => (
-                        <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
-                        ))}
-                    </div>
-                )}>
-                {Types.map(type =>
-                    <MenuItem key={type.value} value={type.value}>
-                        {type.name}
-                    </MenuItem>)}
-            </Select>
-            </FormControl>
-            <FormControl className={classes.rangeFormControl}>
-            <InputLabel>Distancia</InputLabel>
-            <Select
-                labelId="range-label"
-                id="range"
-                value={selectedRange}
-                onChange={evt => onChangeRadius(evt.target.value)}
-            >
-                {Ranges.map(type =>
-                    <MenuItem value={type.value}>{type.value} Km</MenuItem>
-                )
-                }
-            </Select>
-            </FormControl>
-            {/* <Button variant="contained" color="primary" disableElevation>Temporary drawer con todos los usuarios??</Button> */}
+                        className={classes.input}
+                        placeholder="Buscar"
+                        onChange={onChangeName}
+                        inputProps={{ 'aria-label': 'search google maps' }}
+                    />
         </Paper>
+        // <Paper component="form" className={classes.root}>
+        //     <Grid container justify="center" alignItems="center">
+        //         <Grid item xs={4}>
+        //             <InputBase
+        //                 className={classes.input}
+        //                 placeholder="Buscar"
+        //                 onChange={onChangeName}
+        //                 inputProps={{ 'aria-label': 'search google maps' }}
+        //             />
+        //         </Grid>
+        //         <Grid item xs={4}>
+        //             <FormControl className={classes.formControl}>
+        //             <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
+        //             <Select
+        //                 labelId="donation-chip-label"
+        //                 id="donation"
+        //                 onChange={onChangeType}
+        //                 multiple
+        //                 value={selectedTypes}
+        //                 input={<Input id="select-multiple-chip" />}
+        //                 renderValue={(selected) => (
+        //                     <div className={classes.chips}>
+        //                     {selected.map((option) => (
+        //                         <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+        //                         ))}
+        //                     </div>
+        //                 )}>
+        //                 {Types.map(type =>
+        //                     <MenuItem key={type.value} value={type.value}>
+        //                         {type.name}
+        //                     </MenuItem>)}
+        //             </Select>
+        //             </FormControl>
+        //         </Grid>
+        //         <Grid item xs={3}>
+        //             <FormControl className={classes.rangeFormControl}>
+        //             <InputLabel>Distancia</InputLabel>
+        //             <Select
+        //                 labelId="range-label"
+        //                 id="range"
+        //                 value={selectedRange}
+        //                 onChange={onChangeRadius}
+        //             >
+        //                 {Ranges.map(type =>
+        //                     <MenuItem value={type.value}>{type.value} Km</MenuItem>
+        //                 )
+        //                 }
+        //             </Select>
+        //             </FormControl>
+        //         </Grid>
+        //         <Grid item xs={1}>
+        //             <IconButton type="submit" onClick={search} className={classes.iconButton} aria-label="search">
+        //                 <SearchIcon />
+        //             </IconButton>
+        //         </Grid>
+        //         {/* <Button variant="contained" color="primary" disableElevation>Temporary drawer con todos los usuarios??</Button> */}
+        //     </Grid>
+        // </Paper>
     );
 }

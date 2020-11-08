@@ -9,6 +9,7 @@ import {
   Drawer,
   useTheme,
   Typography,
+  Button,
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -17,6 +18,9 @@ import useUsers from "utils/useUsers";
 import useCurrentUser from 'utils/useCurrentUser'
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
+import SearchBar from "components/3rdParty/SearchBar";
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 export default function Header({styleClasses, open, handleDrawerOpen}) {
   const classes = styleClasses;
@@ -49,54 +53,7 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
           <Typography variant="h6" noWrap>
             CURRENT PAGE
           </Typography>
-          {/* <IconButton
-            onClick={() => sendTo("map")}
-            className={classes.menuButton}
-            aria-label="open drawer"
-            edge="end"
-          >
-            <MapIcon />
-            Mapa
-          </IconButton>
-          {!currentUser && <IconButton
-            onClick={() => sendTo("user/register")}
-            className={classes.menuButton}
-            aria-label="open drawer"
-            edge="end"
-          >
-            <AddCircleIcon />
-            Mostrate!
-          </IconButton>}
-          <IconButton
-            onClick={() => sendTo("")}
-            className={classes.menuButton}
-            aria-label="open drawer"
-            edge="end"
-          >
-            <HomeIcon />
-            Nosotros
-          </IconButton>
-          {!currentUser && <IconButton
-            onClick={() => sendTo("login")}
-            className={classes.menuButton}
-            aria-label="open drawer"
-            edge="end"
-          >
-            <AccountCircleIcon />
-            Login
-          </IconButton>} */}
           <div style={{ marginLeft: "auto" }}>
-            {/* {currentUser &&
-              <IconButton
-                style={{ marginTop: "-50px" }}
-                onClick={deleteUser}
-                className={classes.menuButton}
-                aria-label="open drawer"
-                edge="end"
-              >
-                <ExitToAppIcon />
-              </IconButton>
-            } */}
             <img
               src={"/large_everdonor.png"}
               alt={"icono"}
