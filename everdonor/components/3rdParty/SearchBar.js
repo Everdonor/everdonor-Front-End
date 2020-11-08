@@ -160,7 +160,7 @@ export default function SearchBar({ searchUsers, location }) {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <Paper className={classes.paper}>
-                        <Grid container spacing={2} direction="row">
+                        <Grid container spacing={2} direction="row"   justify="center">
                             <Grid item sm={8}>
                                 <FormControl className={classes.formControl}> { /* TODO: check this class*/ }
                                     <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>

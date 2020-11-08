@@ -29,6 +29,23 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
 
   const router = useRouter();
   const [users] = useUsers([]);
+  
+  const changeTitle = () => {
+    if (typeof window !== "undefined") {
+      switch(window.location.pathname){
+        case '/map':
+          return 'Mapa';
+        case '/user/register':
+          return 'Mostrate!';
+        case '/login':
+          return 'Iniciar Sesión';
+        default:
+          return 'Everdonor';
+      }
+    }
+  }
+
+  let title = changeTitle();
 
   return (
     <>
@@ -51,7 +68,7 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            CURRENT PAGE
+            {title}
           </Typography>
           <div style={{ marginLeft: "auto" }}>
             <img
