@@ -114,69 +114,51 @@ export default function SearchBar({ searchUsers, location }) {
     return (
         <Paper>
             <InputBase
-                        className={classes.input}
-                        placeholder="Buscar"
-                        onChange={onChangeName}
-                        inputProps={{ 'aria-label': 'search google maps' }}
-                    />
+                id="Name"
+                className={classes.input}
+                placeholder="Buscar"
+                onChange={(event) => onChangeName(event.target.value)}
+                inputProps={{ 'aria-label': 'search google maps' }}
+            />
+            <IconButton id="SearchIcon" type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
+                <SearchIcon />
+            </IconButton>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
+                <Select
+                    labelId="donation-chip-label"
+                    id="donation"
+                    onChange={onChangeType}
+                    multiple
+                    value={selectedTypes}
+                    input={<Input id="select-multiple-chip" />}
+                    renderValue={(selected) => (
+                        <div className={classes.chips}>
+                            {selected.map((option) => (
+                                <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+                            ))}
+                        </div>
+                    )}>
+                    {Types.map(type =>
+                        <MenuItem key={type.value} value={type.value}>
+                            {type.name}
+                        </MenuItem>)}
+                </Select>
+            </FormControl>
+            <FormControl className={classes.rangeFormControl}>
+                <InputLabel>Distancia</InputLabel>
+                <Select
+                    labelId="range-label"
+                    id="range"
+                    value={selectedRange}
+                    onChange={evt => onChangeRadius(evt.target.value)}
+                >
+                    {Ranges.map(type =>
+                        <MenuItem value={type.value}>{type.value} Km</MenuItem>
+                    )
+                    }
+                </Select>
+            </FormControl>
         </Paper>
-        // <Paper component="form" className={classes.root}>
-        //     <Grid container justify="center" alignItems="center">
-        //         <Grid item xs={4}>
-        //             <InputBase
-        //                 className={classes.input}
-        //                 placeholder="Buscar"
-        //                 onChange={onChangeName}
-        //                 inputProps={{ 'aria-label': 'search google maps' }}
-        //             />
-        //         </Grid>
-        //         <Grid item xs={4}>
-        //             <FormControl className={classes.formControl}>
-        //             <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
-        //             <Select
-        //                 labelId="donation-chip-label"
-        //                 id="donation"
-        //                 onChange={onChangeType}
-        //                 multiple
-        //                 value={selectedTypes}
-        //                 input={<Input id="select-multiple-chip" />}
-        //                 renderValue={(selected) => (
-        //                     <div className={classes.chips}>
-        //                     {selected.map((option) => (
-        //                         <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
-        //                         ))}
-        //                     </div>
-        //                 )}>
-        //                 {Types.map(type =>
-        //                     <MenuItem key={type.value} value={type.value}>
-        //                         {type.name}
-        //                     </MenuItem>)}
-        //             </Select>
-        //             </FormControl>
-        //         </Grid>
-        //         <Grid item xs={3}>
-        //             <FormControl className={classes.rangeFormControl}>
-        //             <InputLabel>Distancia</InputLabel>
-        //             <Select
-        //                 labelId="range-label"
-        //                 id="range"
-        //                 value={selectedRange}
-        //                 onChange={onChangeRadius}
-        //             >
-        //                 {Ranges.map(type =>
-        //                     <MenuItem value={type.value}>{type.value} Km</MenuItem>
-        //                 )
-        //                 }
-        //             </Select>
-        //             </FormControl>
-        //         </Grid>
-        //         <Grid item xs={1}>
-        //             <IconButton type="submit" onClick={search} className={classes.iconButton} aria-label="search">
-        //                 <SearchIcon />
-        //             </IconButton>
-        //         </Grid>
-        //         {/* <Button variant="contained" color="primary" disableElevation>Temporary drawer con todos los usuarios??</Button> */}
-        //     </Grid>
-        // </Paper>
     );
 }

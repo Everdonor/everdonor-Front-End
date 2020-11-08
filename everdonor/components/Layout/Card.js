@@ -77,7 +77,7 @@ export default function EntityCard({
           </CardContent>
         </CardActionArea>
         <CardActions disableSpacing>
-          <Button size="small" color="primary" onClick={handleClick}>
+          <Button id={`id_${name}_vermas`} size="small" color="primary" onClick={handleClick}>
             Ver mas
           </Button>
           <IconButton

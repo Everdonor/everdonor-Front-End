@@ -7,6 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import EverdonorAPI from "api-client/EverdonorAPI";
 import { useRouter } from "next/router";
 import useCurrentUser from 'utils/useCurrentUser'
+import {
+  Typography,
+  Grid
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   moveLeft: {
@@ -29,20 +33,27 @@ export default function ProfileAndModify() {
 
   return (
     <div>
-      <div className={classes.moveLeft}>
-        {currentUser && user.email === currentUser.sub &&
-          <>
-            < Switch
-              checked={willModify}
-              onChange={() => setWillModify(!willModify)}
-              color="primary"
-              name="checkedB"
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
+      <Grid container >
+        <Grid item xs={6} className={classes.moveLeft}>
+          <Typography component="h1" variant="h5">
+            Perfil
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          {currentUser && user.email === currentUser.sub &&
+            <>
+              < Switch
+                checked={willModify}
+                onChange={() => setWillModify(!willModify)}
+                color="primary"
+                name="checkedB"
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
           Modificar
           </>
-        }
-      </div>
+          }
+        </Grid>
+      </Grid>
       {
         willModify
           ?

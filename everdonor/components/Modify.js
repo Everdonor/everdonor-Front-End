@@ -138,9 +138,7 @@ export default function Modify({ user }) {
                         {error.message ? error.message : "Ocurrio un error, intenta de nuevo en unos minutos!"}
                     </Typography>
                 }
-                <Typography className={classes.title} component="h1" variant="h5">
-                    Perfil
-                </Typography>
+
 
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
@@ -207,23 +205,21 @@ export default function Modify({ user }) {
                                     </Select>
                                     <br />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={6}>
                                     <TextField
                                         variant="outlined"
                                         margin="left"
-                                        style={{ width: "49%" }}
+                                        style={{ width: "100%" }}
                                         onChange={sanitizeUrl}
                                         id="Link Todo Pago"
                                         label="Link de todo pago"
                                         name="Link de todo pago"
                                     />
                                 </Grid>
-                                <Grid container>
-                                    <Grid item>
-                                        <Link href="/todoPago" variant="body2">
-                                            {"Que es esto?"}
-                                        </Link>
-                                    </Grid>
+                                <Grid item xs={6}>
+                                    <Link href="/todoPago" variant="body2">
+                                        {"Que es esto?"}
+                                    </Link>
                                 </Grid>
                                 <br />
 

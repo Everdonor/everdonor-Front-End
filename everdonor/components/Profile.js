@@ -90,9 +90,6 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography className={classes.title} component="h1" variant="h5">
-                    Perfil
-                </Typography>
 
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
