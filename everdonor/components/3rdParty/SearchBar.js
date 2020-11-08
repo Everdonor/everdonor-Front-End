@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from '@material-ui/core/Select';
-import { Button, Chip, FormControl, Grid, Input, InputLabel, MenuItem } from '@material-ui/core';
+import { Button, Chip, FormControl, Grid, Input, InputLabel, MenuItem, useMediaQuery, useTheme } from '@material-ui/core';
 
 const Types = [
     { name: "Comida", value: "Food" },
@@ -24,58 +24,75 @@ const Ranges = [
 ]
 
 const useStyles = makeStyles((theme) => ({
+//     root: {
+//         position: "absolute",
+//         padding: '2px 4px',
+//         display: 'flex',
+//         alignItems: 'center',
+//         width: 600,
+//         zIndex: 1000,
+//         [theme.breakpoints.down("sm")]: {
+//             marginLeft: '10%',
+//             width: '70%'
+//         },
+//         [theme.breakpoints.up("md")]: {
+//             marginLeft: '30%'
+//         },
+//         [theme.breakpoints.up("lg")]: {
+//             marginLeft: '45%'
+//         },
+//     },
+//     input: {
+//         paddingTop: '15px',
+//         marginLeft: theme.spacing(1),
+//         flex: 1,
+//     },
+//     iconButton: {
+//         padding: 10,
+//     },
+//     paddingLeft: {
+//         marginLeft: 10
+//     },
+//     divider: {
+//         height: 28,
+//         margin: 4,
+//     },
+
+//     selectEmpty: {
+//         marginTop: theme.spacing(2),
+//     },
     root: {
-        position: "absolute",
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 600,
-        zIndex: 1000,
-        [theme.breakpoints.down("sm")]: {
-            marginLeft: '10%',
-            width: '70%'
-        },
-        [theme.breakpoints.up("md")]: {
-            marginLeft: '30%'
-        },
-        [theme.breakpoints.up("lg")]: {
-            marginLeft: '45%'
-        },
+        flexGrow: 1,
+        padding: theme.spacing(2),
+        marginRight: theme.spacing(7),
+        // [theme.breakpoints.between(0, 300)]: {
+        //     display: 'none'
+        // },
+    },
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        height: theme.spacing(8)
     },
     input: {
-        paddingTop: '15px',
-        marginLeft: theme.spacing(1),
-        flex: 1,
+        paddingTop: theme.spacing(1),
     },
-    iconButton: {
-        padding: 10,
-    },
-    paddingLeft: {
-        marginLeft: 10
-    },
-    divider: {
-        height: 28,
-        margin: 4,
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 180,
-        // maxWidth: 250
-    },
-    rangeFormControl: {
-        margin: theme.spacing(1),
-        minWidth: 100,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
+    // formControl: {
+    //     width: theme.spacing(28),
+    // },
+    // rangeFormControl: {
+    //     minWidth: 100,
+    // },
 }));
 
 export default function SearchBar({ searchUsers, location }) {
     const [selectedTypes, setSelectedTypes] = useState([])
     const [selectedRange, setSelectedRange] = useState("")
     const [requestParams, setRequestParams] = useState({})
-  
+    const theme = useTheme();
+    const upXs = useMediaQuery(theme.breakpoints.up('xs'));
+
     const classes = useStyles();
     
     const sendRequest = () => {
@@ -112,53 +129,73 @@ export default function SearchBar({ searchUsers, location }) {
     }
 
     return (
-        <Paper>
-            <InputBase
-                id="Name"
-                className={classes.input}
-                placeholder="Buscar"
-                onChange={(event) => onChangeName(event.target.value)}
-                inputProps={{ 'aria-label': 'search google maps' }}
-            />
-            <IconButton id="SearchIcon" type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
-                <SearchIcon />
-            </IconButton>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
-                <Select
-                    labelId="donation-chip-label"
-                    id="donation"
-                    onChange={onChangeType}
-                    multiple
-                    value={selectedTypes}
-                    input={<Input id="select-multiple-chip" />}
-                    renderValue={(selected) => (
-                        <div className={classes.chips}>
-                            {selected.map((option) => (
-                                <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
-                            ))}
-                        </div>
-                    )}>
-                    {Types.map(type =>
-                        <MenuItem key={type.value} value={type.value}>
-                            {type.name}
-                        </MenuItem>)}
-                </Select>
-            </FormControl>
-            <FormControl className={classes.rangeFormControl}>
-                <InputLabel>Distancia</InputLabel>
-                <Select
-                    labelId="range-label"
-                    id="range"
-                    value={selectedRange}
-                    onChange={evt => onChangeRadius(evt.target.value)}
-                >
-                    {Ranges.map(type =>
-                        <MenuItem value={type.value}>{type.value} Km</MenuItem>
-                    )
-                    }
-                </Select>
-            </FormControl>
-        </Paper>
+        <div className={classes.root}>
+            <Grid container spacing={3} direction={upXs ? "row" : "column"}>
+                <Grid item xs={12} sm={4}>
+                    <Paper className={classes.paper}>
+                        <Grid container spacing={2} direction="row">
+                            <Grid item xs={9}>
+                                <InputBase
+                                    id="Name"
+                                    className={classes.input}
+                                    placeholder="Buscar"
+                                    onChange={onChangeName}
+                                    inputProps={{ 'aria-label': 'search google maps' }}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <IconButton id="SearchIcon" type="submit" onClick={(evt) => search(evt, name)} className={classes.iconButton} aria-label="search">
+                                    <SearchIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <Paper className={classes.paper}>
+                        <FormControl className={classes.formControl}> { /* TODO: check this class*/ }
+                            <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
+                            <Select
+                                labelId="donation-chip-label"
+                                id="donation"
+                                onChange={onChangeType}
+                                multiple
+                                value={selectedTypes}
+                                input={<Input id="select-multiple-chip" />}
+                                renderValue={(selected) => (
+                                    <div className={classes.chips}>
+                                        {selected.map((option) => (
+                                            <Chip key={Types.find(type => type.value === option).value} label={Types.find(type => type.value === option).name} className={classes.chip} />
+                                        ))}
+                                    </div>
+                                )}>
+                                {Types.map(type =>
+                                    <MenuItem key={type.value} value={type.value}>
+                                        {type.name}
+                                    </MenuItem>)}
+                            </Select>
+                        </FormControl>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <Paper className={classes.paper}>
+                        <FormControl className={classes.rangeFormControl}> { /* TODO: check this class */ }
+                            <InputLabel>Distancia</InputLabel>
+                            <Select
+                                labelId="range-label"
+                                id="range"
+                                value={selectedRange}
+                                onChange={onChangeRadius}
+                            >
+                                {Ranges.map(type =>
+                                    <MenuItem value={type.value}>{type.value} Km</MenuItem>
+                                )
+                                }
+                            </Select>
+                        </FormControl>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </div>
     );
 }
