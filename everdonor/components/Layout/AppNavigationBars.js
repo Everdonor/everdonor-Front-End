@@ -24,6 +24,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Header from './Header';
 import useCurrentUser from 'utils/useCurrentUser'
 import { useRouter } from 'next/router';
+import { Tooltip } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -172,15 +173,17 @@ export default function AppNavigationBars({children}) {
         <List>
           {drawerItems.map((item) => (
             item.enabled && 
-              <ListItem 
-                button 
-                key={item.text} 
-                onClick={item.onClick}
-                // selected
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItem>
+              <Tooltip title={item.text} placement="right" disableHoverListener={open}>
+                <ListItem 
+                  button 
+                  key={item.text} 
+                  onClick={item.onClick}
+                  // selected
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              </Tooltip>
           ))}
         </List>
         <List className={classes.drawerBottom}>
