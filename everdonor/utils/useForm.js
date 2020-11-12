@@ -8,6 +8,10 @@ export default function useUsers(value = {}) {
         setForm({ ...form, [name]: value })
     }
 
+    const addComaSepareted = (name) => ({ target: { value } }) => {
+        setForm({ ...form, [name]: value.split(',') })
+    }
+
     const addLinkTodoPago = (value) => {
         setForm({ ...form, todoPagoLink: value })
     }
@@ -16,5 +20,5 @@ export default function useUsers(value = {}) {
         setForm({ ...form, image: value })
     }
 
-    return [form, addOrUpdateValue, addImageValue, addLinkTodoPago]
+    return [form, addOrUpdateValue, addImageValue, addLinkTodoPago, addComaSepareted]
 }
