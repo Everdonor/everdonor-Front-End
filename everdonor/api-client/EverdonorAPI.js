@@ -1,7 +1,7 @@
 import Axios from "axios";
 import Qs from "qs"
 
-const server = "http://localhost:8080/";
+const server = process.env.HOST;
 
 const API = {
     getUsers: (request) => Axios.get(`${server}users`, 

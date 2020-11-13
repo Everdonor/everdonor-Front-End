@@ -46,7 +46,7 @@ const MapWithSearch = ({ label = "Hace click en el lugar donde vivis:", setCoord
 
     return (
         <div style={{ height: height }} id="testMap">
-            <Typography component="h1" variant="h5">
+            <Typography component="h3" variant="h5" style={{marginTop: 16, marginBottom: 2}}>
                 {label}
             </Typography>
             <ReactMapGL

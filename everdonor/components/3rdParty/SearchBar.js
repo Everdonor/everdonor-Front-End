@@ -73,7 +73,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        height: theme.spacing(8)
+        height: theme.spacing(8),
+        position: 'relative',
+        zIndex: 1000,
     },
     input: {
         paddingTop: theme.spacing(1),
@@ -162,7 +164,7 @@ export default function SearchBar({ searchUsers, location }) {
                     <Paper className={classes.paper}>
                         <Grid container spacing={2} direction="row"   justify="center">
                             <Grid item sm={8}>
-                                <FormControl className={classes.formControl}> { /* TODO: check this class*/ }
+                                <FormControl className={classes.formControl} fullWidth> { /* TODO: check this class*/ }
                                     <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
                                     <Select
                                         labelId="donation-chip-label"
