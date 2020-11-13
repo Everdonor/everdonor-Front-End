@@ -72,8 +72,7 @@ export default function Home() {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <img src={"/linkModificacion.PNG"} alt={"icono"} style={{ width: "100%" }} />
-                        <img src={"/linkRegistro.PNG"} alt={"icono"} style={{ width: "100%" }} />
+                        <img src={"/linkRegistro.PNG"} alt={"icono"} style={{ width: "180%" }} />
                     </Grid>
                 </Grid>
             </Container>
