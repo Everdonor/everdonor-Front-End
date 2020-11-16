@@ -24,43 +24,6 @@ const Ranges = [
 ]
 
 const useStyles = makeStyles((theme) => ({
-//     root: {
-//         position: "absolute",
-//         padding: '2px 4px',
-//         display: 'flex',
-//         alignItems: 'center',
-//         width: 600,
-//         zIndex: 1000,
-//         [theme.breakpoints.down("sm")]: {
-//             marginLeft: '10%',
-//             width: '70%'
-//         },
-//         [theme.breakpoints.up("md")]: {
-//             marginLeft: '30%'
-//         },
-//         [theme.breakpoints.up("lg")]: {
-//             marginLeft: '45%'
-//         },
-//     },
-//     input: {
-//         paddingTop: '15px',
-//         marginLeft: theme.spacing(1),
-//         flex: 1,
-//     },
-//     iconButton: {
-//         padding: 10,
-//     },
-//     paddingLeft: {
-//         marginLeft: 10
-//     },
-//     divider: {
-//         height: 28,
-//         margin: 4,
-//     },
-
-//     selectEmpty: {
-//         marginTop: theme.spacing(2),
-//     },
     root: {
         flexGrow: 1,
         padding: theme.spacing(2),
@@ -80,12 +43,6 @@ const useStyles = makeStyles((theme) => ({
     input: {
         paddingTop: theme.spacing(1),
     },
-    // formControl: {
-    //     width: theme.spacing(28),
-    // },
-    // rangeFormControl: {
-    //     minWidth: 100,
-    // },
     chips: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -93,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     chip: {
         margin: 2,
     },
+    scale: {
+        transform: 'scale(0.9)'
+    }
 }));
 
 export default function SearchBar({ searchUsers, location }) {
@@ -139,7 +99,7 @@ export default function SearchBar({ searchUsers, location }) {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={3} direction={upXs ? "row" : "column"} justify="flex-end">
+            <Grid container spacing={3} direction={upXs ? "row" : "column"} alignItems="center" justify="flex-end">
                 <Grid item xs={12} sm={4}>
                     <Paper className={classes.paper}>
                         <Grid container spacing={2} direction="row">
@@ -162,11 +122,12 @@ export default function SearchBar({ searchUsers, location }) {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <Paper className={classes.paper}>
-                        <Grid container spacing={2} direction="row"   justify="center">
+                        <Grid container spacing={2} direction="row" justify="center" className={classes.scale}>
                             <Grid item sm={8}>
                                 <FormControl className={classes.formControl} fullWidth> { /* TODO: check this class*/ }
                                     <InputLabel id="demo-mutiple-chip-label">Tipos de donacion</InputLabel>
                                     <Select
+                                        disableUnderline
                                         labelId="donation-chip-label"
                                         id="donation"
                                         onChange={onChangeType}
@@ -188,9 +149,10 @@ export default function SearchBar({ searchUsers, location }) {
                                 </FormControl>
                             </Grid>
                             <Grid item sm={4}>                                
-                                <FormControl className={classes.rangeFormControl}> { /* TODO: check this class */ }
+                                <FormControl className={classes.formControl} fullWidth> { /* TODO: check this class */ }
                                     <InputLabel>Distancia</InputLabel>
                                     <Select
+                                        disableUnderline
                                         labelId="range-label"
                                         id="range"
                                         value={selectedRange}
