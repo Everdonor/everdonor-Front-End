@@ -39,8 +39,10 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
           return 'Mostrate!';
         case '/login':
           return 'Iniciar Sesión';
-        default:
+        case '/':
           return 'Everdonor';
+        default:
+          return 'Perfil';
       }
     }
   }

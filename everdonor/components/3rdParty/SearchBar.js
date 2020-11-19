@@ -107,7 +107,7 @@ export default function SearchBar({ searchUsers, location }) {
                                 <InputBase
                                     id="Name"
                                     className={classes.input}
-                                    placeholder="Buscar"
+                                    placeholder="Buscar por nombre"
                                     onChange={onChangeName}
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />

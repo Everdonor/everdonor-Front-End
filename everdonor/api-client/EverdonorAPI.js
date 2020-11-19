@@ -11,6 +11,7 @@ const API = {
             },
         }).then(response => response.data),
     searchById: (id) => Axios.get(`${server}users/${id}`).then(response => response.data),
+    searchByEmail: (email) => Axios.get(`${server}users/email/${email}`).then(response => response.data),
     createUser: (body) => Axios.post(`${server}sign-up`, { ...body }).then(response => response.data),
     loginUser: (body) => Axios.post(`${server}login`, { ...body }).then(response => response.headers),
     modifyUser: (body) => Axios.put(`${server}users/${body.id}`, { ...body }).then(response => response.data),

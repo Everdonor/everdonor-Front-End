@@ -25,6 +25,7 @@ import Header from './Header';
 import useCurrentUser from 'utils/useCurrentUser'
 import { useRouter } from 'next/router';
 import { Tooltip } from '@material-ui/core';
+import API from 'api-client/EverdonorAPI';
 
 const drawerWidth = 240;
 
@@ -97,8 +98,7 @@ const useStyles = makeStyles((theme) => ({
     height: 58,
   },
   drawerBottom: {
-    position: 'absolute',
-    bottom: '12px',
+    marginTop: 'auto'
   },
 }));
 
@@ -133,10 +133,21 @@ export default function AppNavigationBars({children}) {
       onClick: () => sendTo("login"),
       enabled: !currentUser && true
     },
+    {
+      text: 'Perfil',
+      icon: <AccountCircleIcon />,
+      onClick: () => goToProfile(), //sendTo("user/1"), //todo: change
+      enabled: currentUser
+    },
   ];
 
   const sendTo = (url) => {
     router.push(`/${url}`);
+  };
+
+  const goToProfile = async () => {
+    const user = await API.searchByEmail(currentUser.sub);
+    sendTo(`user/${user.id}`);
   };
 
   const handleDrawerOpen = () => {
@@ -146,6 +157,16 @@ export default function AppNavigationBars({children}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const logout = () => {
+    deleteUser();
+    if (typeof window !== "undefined") {
+      if (window.location.pathname.includes('/user')) {
+        console.log('reset');
+        //router.reload();
+      }
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -178,7 +199,6 @@ export default function AppNavigationBars({children}) {
                   button 
                   key={item.text} 
                   onClick={item.onClick}
-                  // selected
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
@@ -188,10 +208,12 @@ export default function AppNavigationBars({children}) {
         </List>
         <List className={classes.drawerBottom}>
           {currentUser && 
-          <ListItem button key="logout" onClick={deleteUser}>
-            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-            <ListItemText primary="Salir de la cuenta" />
-          </ListItem>}
+          <Tooltip title="Cerrar sesión" placement="right" disableHoverListener={open}>
+            <ListItem button key="logout" onClick={() => logout()}>
+              <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+              <ListItemText primary="Cerrar sesión" />
+            </ListItem>
+          </Tooltip>}
         </List>
       </Drawer>
       <main className={classes.content}>
