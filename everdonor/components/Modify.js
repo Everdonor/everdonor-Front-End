@@ -31,6 +31,10 @@ const types = [
 ]
 
 const useStyles = makeStyles((theme) => ({
+    formControl: {
+        padding: "5px",
+        display: "flex"
+    },
     container: {
         display: "grid",
         gridTemplateColumns: "repeat(12, 1fr)",
@@ -50,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
     },
     profileCard: {
-        // padding: theme.spacing(1),
-        // display: "flex",
+        padding: theme.spacing(1),
+        display: "flex",
         // flexDirection: "column",
     },
     profileCardImage: {
@@ -61,11 +65,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
     },
     profileInformationCard: {
-        // padding: theme.spacing(1.2),
-        // textAlign: "left",
-        // // color: theme.palette.text.secondary,
-        // whiteSpace: "nowrap",
-        // marginBottom: theme.spacing(1),
+        padding: theme.spacing(1.2),
+        textAlign: "left",
+        // color: theme.palette.text.secondary,
+        whiteSpace: "nowrap",
+        marginBottom: theme.spacing(1),
     },
     title: {
         marginBottom: theme.spacing(4),
@@ -171,7 +175,7 @@ export default function Modify({ user }) {
                     <Grid item xs={8}>
                         <Paper className={classes.profileInformationCard}>
                             <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs={6}>
+                                <Grid item xs={6} className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.email}
                                         onChange={addOrUpdateValue("email")}
@@ -186,6 +190,7 @@ export default function Modify({ user }) {
                                         className={classes.profileCard}
                                         label="Número de telefono"
                                     />
+                                    <br />
                                     <TextField id="outlined-basic"
                                         variant="outlined"
                                         onChange={sanitizeUrl}
@@ -196,7 +201,7 @@ export default function Modify({ user }) {
                                         </Link>}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={6} className={classes.profileInformationCard} >
                                     <TextField id="outlined-basic" defaultValue={form.address}
                                         onChange={addOrUpdateValue("address")}
                                         variant="outlined"
@@ -204,7 +209,7 @@ export default function Modify({ user }) {
                                         className={classes.profileCard}
                                         label="Direccion"
                                     />
-                                    <br />
+
                                     <TextField
                                         defaultValue={form.links.toString()}
                                         variant="outlined"
@@ -217,8 +222,8 @@ export default function Modify({ user }) {
                                         helperText="Links separados por coma"
                                     />
 
-                                    <FormControl fullWidth>
-                                        <InputLabel id="donation-label">Tipo de donacion</InputLabel>
+                                    <FormControl className={classes.formControl}>
+                                        {/* <InputLabel id="donation-label" shrink >Tipo de donacion</InputLabel> */}
                                         <Select
                                             id="donation"
                                             select
@@ -229,13 +234,10 @@ export default function Modify({ user }) {
                                             onChange={addOrUpdateValue("donationTypes")}
                                             MenuProps={{ autoFocus: true }}
                                             renderValue={(selected) => (
-                                                <div className={classes.chips}>
-                                                    {selected.map((option) => (
-                                                        <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
-                                                    ))}
-                                                </div>
+                                                selected.map((option) => (
+                                                    types.find(type => type.value === option).name
+                                                )).join(", ")
                                             )}
-                                            helperText="Por favor seleccione que tipo de donacion necesita"
                                         >
                                             {types.map((option) => (
                                                 <MenuItem key={option.value} id={option.value} value={option.value}>
