@@ -73,6 +73,8 @@ const types = [
     { name: "Comida", value: "FOOD" },
     { name: "Ropa", value: "CLOTHES" },
     { name: "Ayuda economica", value: "FUNDING" },
+    { name: "Cosas de niños", value: "KIDS" },
+    { name: "Juguetes", value: "TOYS" },
 ]
 
 export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude, todoPagoLink, links } }) {
