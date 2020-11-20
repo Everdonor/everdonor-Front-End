@@ -136,7 +136,7 @@ export default function AppNavigationBars({children}) {
     {
       text: 'Perfil',
       icon: <AccountCircleIcon />,
-      onClick: () => goToProfile(), //sendTo("user/1"), //todo: change
+      onClick: () => goToProfile(),
       enabled: currentUser
     },
   ];

@@ -48,10 +48,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
     },
     profileCard: {
-        padding: theme.spacing(1),
-        display: "flex",
-        flexDirection: "column",
-
+        // padding: theme.spacing(1),
+        // display: "flex",
+        // flexDirection: "column",
     },
     profileCardImage: {
         padding: theme.spacing(1),
@@ -60,11 +59,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
     },
     profileInformationCard: {
-        padding: theme.spacing(1.2),
-        textAlign: "left",
-        // color: theme.palette.text.secondary,
-        whiteSpace: "nowrap",
-        marginBottom: theme.spacing(1),
+        // padding: theme.spacing(1.2),
+        // textAlign: "left",
+        // // color: theme.palette.text.secondary,
+        // whiteSpace: "nowrap",
+        // marginBottom: theme.spacing(1),
     },
     title: {
         marginBottom: theme.spacing(4),
@@ -88,6 +87,15 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    dropzone: {
+        marginBottom: theme.spacing(2),
+    },
+    form: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    }
 }));
 
 export default function Modify({ user }) {
@@ -144,8 +152,8 @@ export default function Modify({ user }) {
                     <Grid item xs={4}>
                         <Paper className={classes.gridPaper}>
                             <Grid item container className={classes.profileCardImage}>
-                                <DropzoneArea onUpload={addImageValue} />
-                                <TextField id="outlined-basic" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" className={classes.profileCard} />
+                                <DropzoneArea onUpload={addImageValue} className={classes.dropzone} />
+                                <TextField id="outlined-basic" label="Nombre" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" className={classes.profileCard} />
                                 <Button
                                     type="submit"
                                     variant="contained"
@@ -160,24 +168,22 @@ export default function Modify({ user }) {
                     </Grid>
                     <Grid item xs={8}>
                         <Paper className={classes.profileInformationCard}>
-                            <Grid item xs container direction="row" spacing={2}>
+                            <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs={6}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.email}
                                         onChange={addOrUpdateValue("email")}
                                         variant="outlined"
                                         className={classes.profileCard}
-                                        label="Nombre"
+                                        label="Email"
                                     />
-                                    <br />
                                     <TextField id="outlined-basic"
                                         defaultValue={form.phoneNumber}
                                         onChange={addOrUpdateValue("phoneNumber")}
                                         variant="outlined"
                                         className={classes.profileCard}
-                                        label="Numero de telefono"
+                                        label="Número de telefono"
                                     />
-                                    <br />
                                     <TextField id="outlined-basic"
                                         variant="outlined"
                                         onChange={sanitizeUrl}

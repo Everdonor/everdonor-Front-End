@@ -87,11 +87,12 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
         return element.name
     }
 
+    const hasLinks = Array.isArray(links) && links.length === 0;
+
     return (
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
-
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
                         <Paper className={classes.gridPaper}>
@@ -153,7 +154,7 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                         {address}
                                     </Typography>
 
-                                    {links &&
+                                    {links || hasLinks &&
                                         <>
                                             <Typography gutterBottom variant="subtitle1">
                                                 Links interesantes:
