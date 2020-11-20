@@ -26,6 +26,8 @@ const types = [
     { name: "Comida", value: "FOOD" },
     { name: "Ropa", value: "CLOTHES" },
     { name: "Ayuda economica", value: "FUNDING" },
+    { name: "Cosas de niños", value: "KIDS" },
+    { name: "Juguetes", value: "TOYS" },
 ]
 
 const useStyles = makeStyles((theme) => ({

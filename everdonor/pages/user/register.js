@@ -23,7 +23,9 @@ const types = [
   { name: "Comida", value: "Food" },
   { name: "Ropa", value: "Clothes" },
   { name: "Ayuda economica", value: "Funding" },
-];
+  { name: "Cosas de niños", value: "KIDS" },
+  { name: "Juguetes", value: "TOYS" },
+]
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
   },
   margin: {
-      margin: theme.spacing(1),
+    margin: theme.spacing(1),
   }
 }));
 
@@ -94,7 +96,7 @@ export default function SignIn() {
       setError({ message: "Link desconocido" });
     }
   };
-  
+
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
