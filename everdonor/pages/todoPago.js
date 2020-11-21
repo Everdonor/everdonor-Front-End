@@ -67,12 +67,55 @@ export default function Home() {
                     alignItems="center"
                     spacing={3}
                 >
+                    <Typography
+                        id="steps-1"
+                        variant="h6"
+                        paragraph
+                        style={{ marginTop: '1em' }}>
+                        Inicia sesión a tu cuenta de Todo Pago y clickean en Vender
+                    </Typography>
                     <Grid item xs={6}>
-                        <img src={"/resaltadoDeLink.PNG"} alt={"icono"} style={{ width: "100%" }} />
+                        <img src={"/paso_1.png"} alt={"icono"} style={{ width: "100%" }} />
                     </Grid>
-
+                    <Typography
+                        id="steps-1"
+                        variant="h6"
+                        paragraph
+                        style={{ marginTop: '1em' }}>
+                        Clickea Nueva Botón
+                    </Typography>
                     <Grid item xs={6}>
-                        <img src={"/linkRegistro.PNG"} alt={"icono"} style={{ width: "180%" }} />
+                        <img src={"/paso_2.png"} alt={"icono"} style={{ width: "100%" }} />
+                    </Grid>
+                    <Typography
+                        id="steps-1"
+                        variant="h6"
+                        paragraph
+                        style={{ marginTop: '1em' }}>
+                        Elegí la opción Para sitio web y completa los datos
+                    </Typography>
+                    <Grid item xs={6}>
+                        <img src={"/paso_3.png"} alt={"icono"} style={{ width: "100%" }} />
+                    </Grid>
+                    <Typography
+                        id="steps-1"
+                        variant="h6"
+                        paragraph
+                        style={{ marginTop: '1em' }}>
+                        Copiá todo
+                    </Typography>
+                    <Grid item xs={6}>
+                        <img src={"/paso_4.png"} alt={"icono"} style={{ width: "100%" }} />
+                    </Grid>
+                    <Typography
+                        id="steps-1"
+                        variant="h6"
+                        paragraph
+                        style={{ marginTop: '1em' }}>
+                        Pegala en Link de todo pago en la página de Modificar Perfil
+                    </Typography>
+                    <Grid item xs={6}>
+                        <img src={"/paso_5.png"} alt={"icono"} style={{ width: "100%" }} />
                     </Grid>
                 </Grid>
                 <div className={classes.heroButtons}>
