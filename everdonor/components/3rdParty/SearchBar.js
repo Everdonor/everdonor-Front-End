@@ -103,7 +103,7 @@ export default function SearchBar({ searchUsers, location }) {
         <div className={classes.root}>
             <Grid container spacing={3} direction={upXs ? "row" : "column"} alignItems="center" justify="flex-end">
                 <Grid item xs={12} sm={4}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={2}>
                         <Grid container spacing={2} direction="row">
                             <Grid item xs={9}>
                                 <InputBase
@@ -123,7 +123,7 @@ export default function SearchBar({ searchUsers, location }) {
                     </Paper>
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={2}>
                         <Grid container spacing={2} direction="row" justify="center" className={classes.scale}>
                             <Grid item sm={8}>
                                 <FormControl className={classes.formControl} fullWidth> { /* TODO: check this class*/ }

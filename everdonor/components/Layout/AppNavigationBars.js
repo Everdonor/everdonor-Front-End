@@ -162,8 +162,7 @@ export default function AppNavigationBars({children}) {
     deleteUser();
     if (typeof window !== "undefined") {
       if (window.location.pathname.includes('/user')) {
-        console.log('reset');
-        //router.reload();
+        router.reload();
       }
     }
   }
