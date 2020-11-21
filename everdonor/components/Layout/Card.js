@@ -9,7 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
-import { Container, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import ReportIcon from "@material-ui/icons/Report";
 import API from "api-client/EverdonorAPI";
 import Modal from "../Modal";
@@ -32,14 +32,12 @@ export default function EntityCard({
   email,
   phoneNumber,
   image,
-  closeDrawerOnClick = () => { },
 }) {
   const classes = useStyles();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    //closeDrawerOnClick(false);
     router.push("/user/[id]", `/user/${id}`);
   };
 
@@ -58,12 +56,11 @@ export default function EntityCard({
         title="¿Desea reportar al usuario?"
       >
       </Modal>
-      <Card className={classes.root}>
+      <Card className={classes.root} elevation={0}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={image}
-            title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">

@@ -1,200 +1,89 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   IconButton,
   Toolbar,
   Grid,
-  CssBaseline,
   Divider,
   List,
-  ListItem,
-  ListItemIcon,
   Drawer,
   useTheme,
-  ListItemText,
+  Typography,
+  Button,
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import InboxIcon from "@material-ui/icons/Inbox";
 import EntityCard from "./Card";
 import useUsers from "utils/useUsers";
 import useCurrentUser from 'utils/useCurrentUser'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from "@material-ui/icons/Menu";
-import MapIcon from "@material-ui/icons/Map";
-import HomeIcon from "@material-ui/icons/Home";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import clsx from "clsx";
+import SearchBar from "components/3rdParty/SearchBar";
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
-const drawerWidth = 400;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  spaceIcons: {
-    marginRight: theme.spacing(1),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  Icon: {
-    height: 64,
-  },
-  appColor: {
-    backgroundColor: theme.palette.background.default
-  },
-}));
-
-export default function Header() {
-  const classes = useStyles();
+export default function Header({styleClasses, open, handleDrawerOpen}) {
+  const classes = styleClasses;
   const theme = useTheme();
-  const [currentUser, deleteUser] = useCurrentUser()
+  const [] = useCurrentUser()
 
-  const [isOpenSideMenu, setIsOpenSideMenu] = useState(false);
   const router = useRouter();
   const [users] = useUsers([]);
+  
+  const changeTitle = () => {
+    if (typeof window !== "undefined") {
+      switch(window.location.pathname){
+        case '/map':
+          return 'Mapa';
+        case '/user/register':
+          return 'Mostrate!';
+        case '/login':
+          return 'Iniciar Sesión';
+        case '/':
+          return 'Everdonor';
+        default:
+          return 'Perfil';
+      }
+    }
+  }
 
-  const toggleSideMenu = () => {
-    setIsOpenSideMenu(!isOpenSideMenu);
-  };
+  let title = changeTitle();
 
-  const sendTo = (url) => {
-    router.push(`/${url}`);
-  };
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <>
       <AppBar //MIN HEIGHT 64
         position="fixed"
         className={clsx(classes.appColor, classes.appBar, {
-          [classes.appBarShift]: isOpenSideMenu,
+          [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
-          <Grid container className={classes.wrapper}>
-            <IconButton
-              onClick={toggleSideMenu}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <MenuIcon className={classes.spaceIcons} />
-            </IconButton>
-            <IconButton
-              onClick={() => sendTo("map")}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <MapIcon className={classes.spaceIcons} />
-              Mapa
-            </IconButton>
-            {!currentUser && <IconButton
-              onClick={() => sendTo("user/register")}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <AddCircleIcon className={classes.spaceIcons} />
-              Mostrate!
-            </IconButton>}
-            <IconButton
-              onClick={() => sendTo("")}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <HomeIcon className={classes.spaceIcons} />
-              Nosotros
-            </IconButton>
-            {!currentUser && <IconButton
-              onClick={() => sendTo("login")}
-              className={classes.menuButton}
-              aria-label="open drawer"
-              edge="end"
-            >
-              <AccountCircleIcon className={classes.spaceIcons} />
-              Login
-            </IconButton>}
-            <div style={{ marginLeft: "auto" }}>
-              {currentUser &&
-                <IconButton
-                  style={{ marginTop: "-50px" }}
-                  onClick={deleteUser}
-                  className={classes.menuButton}
-                  aria-label="open drawer"
-                  edge="end"
-                >
-                  <ExitToAppIcon className={classes.spaceIcons} />
-                </IconButton>
-              }
-              <img
-                src={"/large_everdonor.png"}
-                alt={"icono"}
-                className={classes.Icon}
-              />
-            </div>
-          </Grid>
+          <IconButton
+            color="inherit"
+            onClick={handleDrawerOpen}
+            className={clsx(classes.menuButton, {
+            [classes.hide]: open,
+          })}
+            aria-label="open drawer"
+            edge="start"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            {title}
+          </Typography>
+          <div style={{ marginLeft: "auto" }}>
+            <img
+              src={"/large_everdonor.png"}
+              alt={"icono"}
+              className={classes.Icon}
+            />
+          </div>
         </Toolbar>
       </AppBar>
-      <main
+      {/* <main
         className={clsx({
-          [classes.contentShift]: isOpenSideMenu,
+          [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
@@ -203,13 +92,13 @@ export default function Header() {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={isOpenSideMenu}
+        open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={toggleSideMenu}>
+          <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
@@ -225,12 +114,12 @@ export default function Header() {
           >
             <Grid item xl={2}>
               {users.map((user) => (
-                <EntityCard {...user} closeDrawerOnClick={setIsOpenSideMenu} />
+                <EntityCard {...user} closeDrawerOnClick={handleDrawerClose} />
               ))}
             </Grid>
           </Grid>
         </List>
-      </Drawer>
-    </div>
+      </Drawer> */}
+    </>
   );
 }

@@ -66,7 +66,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label="Email"
                         name="email"
                         autoComplete="email"
                         onChange={addOrUpdateValue("email")}
@@ -78,7 +78,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Contraseña"
                         type="password"
                         id="password"
                         onChange={addOrUpdateValue("password")}
@@ -92,7 +92,7 @@ export default function SignIn() {
 
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        label="Recordame"
                     />
                     <Button
                         type="submit"

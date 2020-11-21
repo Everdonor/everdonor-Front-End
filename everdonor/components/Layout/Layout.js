@@ -1,10 +1,11 @@
-import Header from './Header';
+import AppNavigationBars from './AppNavigationBars';
 
 function Layout({ children }) {
     return (
         <>
-            <Header />
-            <div>{children}</div>
+            <AppNavigationBars>
+                {children}
+            </AppNavigationBars>
         </>
     );
 }

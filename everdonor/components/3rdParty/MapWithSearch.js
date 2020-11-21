@@ -14,7 +14,7 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 const SIZE = 30;
 
 
-const MapWithSearch = ({ label = "Hace click en el lugar donde vivis:", setCoordenates, coordenates, disableClick, height = "65vh" }) => {
+const MapWithSearch = ({ label = "Aca estas!", setCoordenates, coordenates, disableClick, height = "65vh" }) => {
     const [viewport, setViewport] = useGeolocation(coordenates);
     const [marker, setMarker] = useState(coordenates)
     const mapRef = useRef();
@@ -46,7 +46,7 @@ const MapWithSearch = ({ label = "Hace click en el lugar donde vivis:", setCoord
 
     return (
         <div style={{ height: height }} id="testMap">
-            <Typography component="h1" variant="h5">
+            <Typography component="h3" variant="h5" style={{marginTop: 16, marginBottom: 2}}>
                 {label}
             </Typography>
             <ReactMapGL

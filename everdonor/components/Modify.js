@@ -31,6 +31,10 @@ const types = [
 ]
 
 const useStyles = makeStyles((theme) => ({
+    formControl: {
+        // padding: "5px",
+        // display: "flex"
+    },
     container: {
         display: "grid",
         gridTemplateColumns: "repeat(12, 1fr)",
@@ -49,12 +53,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
     },
-    profileCard: {
-        padding: theme.spacing(1),
-        display: "flex",
-        flexDirection: "column",
-
-    },
     profileCardImage: {
         padding: theme.spacing(1),
         display: "flex",
@@ -67,6 +65,13 @@ const useStyles = makeStyles((theme) => ({
         // color: theme.palette.text.secondary,
         whiteSpace: "nowrap",
         marginBottom: theme.spacing(1),
+    },
+    textField: {
+        marginLeft: theme.spacing(2),
+        width: '40%'
+    },
+    select: {
+        marginLeft: theme.spacing(2),
     },
     title: {
         marginBottom: theme.spacing(4),
@@ -90,6 +95,15 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    dropzone: {
+        marginBottom: theme.spacing(2),
+    },
+    form: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    }
 }));
 
 export default function Modify({ user }) {
@@ -129,7 +143,7 @@ export default function Modify({ user }) {
         <Container component="main">
             <CssBaseline />
             <Modal open={open} onAccept={modifyUser} onClose={() => setOpen(false)} title="Inserte Contraseña para confirmar">
-                <TextField id="outlined-basic" type="password" onChange={addOrUpdateValue("password")} variant="outlined" className={classes.profileCard} />
+                <TextField id="outlined-basic" type="password" onChange={addOrUpdateValue("password")} variant="outlined" />
             </Modal>
 
             <UpdatePasswordModal open={openPasswordChange} onCloseModal={() => setOpenPasswordChange(false)} userId={user.id} />
@@ -140,14 +154,12 @@ export default function Modify({ user }) {
                         {error.message ? error.message : "Ocurrio un error, intenta de nuevo en unos minutos!"}
                     </Typography>
                 }
-
-
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
-                        <Paper className={classes.gridPaper}>
+                        <Paper className={classes.gridPaper} elevation={4}>
                             <Grid item container className={classes.profileCardImage}>
-                                <DropzoneArea onUpload={addImageValue} />
-                                <TextField id="outlined-basic" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" className={classes.profileCard} />
+                                <DropzoneArea onUpload={addImageValue} className={classes.dropzone} />
+                                <TextField id="outlined-basic" label="Nombre" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" />
                                 <Button
                                     type="submit"
                                     variant="contained"
@@ -161,75 +173,70 @@ export default function Modify({ user }) {
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
-                        <Paper className={classes.profileInformationCard}>
-                            <Grid item xs container direction="row" spacing={2}>
-                                <Grid item xs={6}>
+                        <Paper className={classes.profileInformationCard} elevation={4}>
+                            <Grid container direction="column" spacing={2}>
+                                <Grid item xs className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.email}
                                         onChange={addOrUpdateValue("email")}
                                         variant="outlined"
-                                        className={classes.profileCard}
-                                        label="Nombre"
+                                        label="Email"
+                                        className={classes.textField}
                                     />
-                                    <br />
+                                    <TextField id="outlined-basic" defaultValue={form.address}
+                                        onChange={addOrUpdateValue("address")}
+                                        variant="outlined"
+                                        className={classes.textField}
+                                        label="Dirección"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.phoneNumber}
                                         onChange={addOrUpdateValue("phoneNumber")}
                                         variant="outlined"
-                                        className={classes.profileCard}
-                                        label="Numero de telefono"
+                                        label="Número de telefono"
+                                        className={classes.textField}
                                     />
-                                    <br />
-                                    <TextField id="outlined-basic"
-                                        variant="outlined"
-                                        onChange={sanitizeUrl}
-                                        className={classes.profileCard}
-                                        label="Link de todo pago"
-                                        helperText={<Link href="/todoPago" variant="body2">
-                                            {"Que es esto?"}
-                                        </Link>}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField id="outlined-basic" defaultValue={form.address}
-                                        onChange={addOrUpdateValue("address")}
-                                        variant="outlined"
-                                        style={{ paddingBottom: "9px" }}
-                                        className={classes.profileCard}
-                                        label="Direccion"
-                                    />
-                                    <br />
                                     <TextField
                                         defaultValue={form.links.toString()}
                                         variant="outlined"
                                         margin="left"
-                                        className={classes.profileCard}
                                         onChange={addComaSeparated("links")}
                                         id="Links utiles"
                                         label="Links utiles(Facebook, pagina web, etc)"
                                         name="Links utiles"
                                         helperText="Links separados por coma"
+                                        className={classes.textField}
                                     />
-
-                                    <FormControl fullWidth>
-                                        <InputLabel id="donation-label">Tipo de donacion</InputLabel>
+                                </Grid>
+                                <Grid item xs={12} className={classes.profileInformationCard}>
+                                    <TextField id="outlined-basic"
+                                        variant="outlined"
+                                        onChange={sanitizeUrl}
+                                        label="Link de todo pago"
+                                        className={classes.textField}
+                                        helperText={<Link href="/todoPago" variant="body2">
+                                            {"Que es esto?"}
+                                        </Link>}
+                                    />
+                                    <FormControl className={classes.formControl}>
+                                        {/* <InputLabel id="donation-label" shrink >Tipo de donacion</InputLabel> */}
                                         <Select
                                             id="donation"
                                             select
                                             multiple
                                             required
+                                            className={classes.select}
                                             variant="outlined"
                                             value={form.donationTypes}
                                             onChange={addOrUpdateValue("donationTypes")}
                                             MenuProps={{ autoFocus: true }}
                                             renderValue={(selected) => (
-                                                <div className={classes.chips}>
-                                                    {selected.map((option) => (
-                                                        <Chip key={types.find(type => type.value === option).value} label={types.find(type => type.value === option).name} className={classes.chip} />
-                                                    ))}
-                                                </div>
+                                                selected.map((option) => (
+                                                    types.find(type => type.value === option).name
+                                                )).join(", ")
                                             )}
-                                            helperText="Por favor seleccione que tipo de donacion necesita"
                                         >
                                             {types.map((option) => (
                                                 <MenuItem key={option.value} id={option.value} value={option.value}>
@@ -239,9 +246,6 @@ export default function Modify({ user }) {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-
-                                <br />
-
                                 <Grid item xs={12}>
                                     <MapWithSearch setCoordenates={manipulateCoordenates} />
                                     <br />

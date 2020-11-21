@@ -89,14 +89,15 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
         return element.name
     }
 
+    const hasLinks = Array.isArray(links) && links.length === 0;
+
     return (
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
-
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
-                        <Paper className={classes.gridPaper}>
+                        <Paper className={classes.gridPaper} elevation={4}>
                             <Grid item container className={classes.profileCard}>
                                 <Avatar
                                     alt="Remy Sharp"
@@ -110,7 +111,7 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
-                        <Paper className={classes.profileInformationCard}>
+                        <Paper className={classes.profileInformationCard} elevation={4}>
                             <Grid item xs container direction="row" spacing={2}>
                                 <Grid item xs={6}>
                                     <Typography gutterBottom variant="subtitle1">
@@ -155,7 +156,7 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                         {address}
                                     </Typography>
 
-                                    {links &&
+                                    {links || hasLinks &&
                                         <>
                                             <Typography gutterBottom variant="subtitle1">
                                                 Links interesantes:
