@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { GeolocateControl, Popup } from "react-map-gl";
 import Pins from "components/3rdParty/pins";
 import useUsers from "utils/useUsers";
@@ -20,6 +20,16 @@ export default function Map() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpInfo, setPopUpInfo] = useState({});
   const [users, searchUsers] = useUsers([]);
+  const [userLocation, setUserLocation] = useState()
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      setUserLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      });
+    });
+  }, []);
 
   const _onClickMarker = ({ user }) => {
     setPopUpInfo(user);
@@ -28,35 +38,35 @@ export default function Map() {
 
   return (
     <ReactMapGL
-          {...location}
-          width="inherit"
-          height="inherit"
-          mapboxApiAccessToken={ApiKey}
-          onViewportChange={(viewport) => setLocation(viewport)}
+      {...location}
+      width="inherit"
+      height="inherit"
+      mapboxApiAccessToken={ApiKey}
+      onViewportChange={(viewport) => { setLocation(viewport) }}
+    >
+      <SearchBar searchUsers={searchUsers} location={userLocation} />
+      <GeolocateControl
+        style={geolocateStyle}
+        positionOptions={{ enableHighAccuracy: true }}
+        label={"Go to my location"}
+        fitBoundsOptions={{ maxZoom: 15 }}
+        auto={true}
+      />
+      <Pins data={users} onClick={_onClickMarker} />
+      {showPopUp && (
+        <Popup
+          latitude={popUpInfo.latitude}
+          longitude={popUpInfo.longitude}
+          closeButton={true}
+          closeOnClick={false}
+          onClose={() => {
+            setShowPopUp(false);
+          }}
+          anchor="top"
         >
-          <SearchBar searchUsers={searchUsers} location={location} />
-          <GeolocateControl
-            style={geolocateStyle}
-            positionOptions={{ enableHighAccuracy: true }}
-            label={"Go to my location"}
-            fitBoundsOptions={{ maxZoom: 15 }}
-            auto={true}
-          />
-          <Pins data={users} onClick={_onClickMarker} />
-          {showPopUp && (
-            <Popup
-              latitude={popUpInfo.latitude}
-              longitude={popUpInfo.longitude}
-              closeButton={true}
-              closeOnClick={false}
-              onClose={() => {
-                setShowPopUp(false);
-              }}
-              anchor="top"
-            >
-              <EntityCard {...popUpInfo} />
-            </Popup>
-          )}
-        </ReactMapGL>
+          <EntityCard {...popUpInfo} />
+        </Popup>
+      )}
+    </ReactMapGL>
   );
 }
