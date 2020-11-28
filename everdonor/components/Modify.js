@@ -10,7 +10,7 @@ import {
     TextField,
     MenuItem,
     Button,
-    Select, Chip, FormControl
+    Select, Chip, FormControl, useMediaQuery, useTheme
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import API from "api-client/EverdonorAPI"
@@ -26,7 +26,7 @@ const types = [
     { name: "Comida", value: "FOOD" },
     { name: "Ropa", value: "CLOTHES" },
     { name: "Ayuda economica", value: "FUNDING" },
-    { name: "Cosas de niños", value: "KIDS" },
+    { name: "Primera necesidad", value: "PRIMARY" },
     { name: "Juguetes", value: "TOYS" },
 ]
 
@@ -55,9 +55,9 @@ const useStyles = makeStyles((theme) => ({
     },
     profileCardImage: {
         padding: theme.spacing(1),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        // display: "flex",
+        // flexDirection: "column",
+        // alignItems: "center",
     },
     profileInformationCard: {
         padding: theme.spacing(1.2),
@@ -68,10 +68,17 @@ const useStyles = makeStyles((theme) => ({
     },
     textField: {
         marginLeft: theme.spacing(2),
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: theme.spacing(2),
+            width: '90%'
+        },
         width: '40%'
     },
     select: {
         marginLeft: theme.spacing(2),
+        [theme.breakpoints.down('xs')]: {
+            width: '90%'
+        },
     },
     title: {
         marginBottom: theme.spacing(4),
@@ -96,7 +103,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
     dropzone: {
-        marginBottom: theme.spacing(2),
+        // marginBottom: theme.spacing(2),
+        transform: 'scale(0.6)',
+        display: 'grid'
     },
     form: {
         '& > *': {
@@ -112,7 +121,10 @@ export default function Modify({ user }) {
     const [open, setOpen] = useState(false);
     const [openPasswordChange, setOpenPasswordChange] = useState(false);
     const [form, addOrUpdateValue, addImageValue, addLinkTodoPago, addComaSeparated] = useForm(user);
-    const [error, setError] = useState()
+    const [error, setError] = useState();
+    const theme = useTheme();
+    const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const downXs = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [coordenate, setCoordenates] = useState({ latitude: form.latitude, longitude: form.longitude })
 
@@ -154,10 +166,10 @@ export default function Modify({ user }) {
                         {error.message ? error.message : "Ocurrio un error, intenta de nuevo en unos minutos!"}
                     </Typography>
                 }
-                <Grid container spacing={3}>
-                    <Grid item xs={4}>
+                <Grid container spacing={3} direction={downSm ? "column" : "row"}>
+                    <Grid item xs={downSm ? 12 : 4}>
                         <Paper className={classes.gridPaper} elevation={4}>
-                            <Grid item container className={classes.profileCardImage}>
+                            <Grid item container className={classes.profileCardImage} direction="column" justify="center" alignItems="center">
                                 <DropzoneArea onUpload={addImageValue} className={classes.dropzone} />
                                 <TextField id="outlined-basic" label="Nombre" defaultValue={form.name} onChange={addOrUpdateValue("name")} variant="outlined" />
                                 <Button
@@ -172,10 +184,10 @@ export default function Modify({ user }) {
                             </Grid>
                         </Paper>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={downSm ? 12 : 8}>
                         <Paper className={classes.profileInformationCard} elevation={4}>
                             <Grid container direction="column" spacing={2}>
-                                <Grid item xs className={classes.profileInformationCard}>
+                                <Grid container item xs direction={downXs ? "column" : "row"} className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.email}
                                         onChange={addOrUpdateValue("email")}
@@ -190,7 +202,7 @@ export default function Modify({ user }) {
                                         label="Dirección"
                                     />
                                 </Grid>
-                                <Grid item xs={12} className={classes.profileInformationCard}>
+                                <Grid container item xs direction={downXs ? "column" : "row"} className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         defaultValue={form.phoneNumber}
                                         onChange={addOrUpdateValue("phoneNumber")}
@@ -210,7 +222,7 @@ export default function Modify({ user }) {
                                         className={classes.textField}
                                     />
                                 </Grid>
-                                <Grid item xs={12} className={classes.profileInformationCard}>
+                                <Grid container item xs direction={downXs ? "column" : "row"} className={classes.profileInformationCard}>
                                     <TextField id="outlined-basic"
                                         variant="outlined"
                                         onChange={sanitizeUrl}

@@ -7,7 +7,9 @@ import {
     Typography,
     Tooltip,
     Link,
-    Button
+    Button,
+    useMediaQuery,
+    useTheme
 } from "@material-ui/core";
 import Zoom from '@material-ui/core/Zoom';
 import { makeStyles } from "@material-ui/core/styles";
@@ -73,12 +75,15 @@ const types = [
     { name: "Comida", value: "FOOD" },
     { name: "Ropa", value: "CLOTHES" },
     { name: "Ayuda economica", value: "FUNDING" },
-    { name: "Cosas de niños", value: "KIDS" },
+    { name: "Primera necesidad", value: "PRIMARY" },
     { name: "Juguetes", value: "TOYS" },
 ]
 
 export default function Profile({ user: { image, name, email, phoneNumber, address, donationTypes, latitude, longitude, todoPagoLink, links } }) {
     const classes = useStyles();
+    const theme = useTheme();
+    const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const downXs = useMediaQuery(theme.breakpoints.down('xs'));
 
     const openBrowser = () => {
         var win = window.open(`https://wa.me/549${phoneNumber}?text=Hola%20me%20interesa%20donar!`, '_blank', "", false);
@@ -95,8 +100,8 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
         <Container component="main">
             <CssBaseline />
             <div className={classes.paper}>
-                <Grid container spacing={3}>
-                    <Grid item xs={4}>
+                <Grid container spacing={3} direction={downSm ? "column" : "row"}>
+                    <Grid item xs={downSm ? 12 : 4}>
                         <Paper className={classes.gridPaper} elevation={4}>
                             <Grid item container className={classes.profileCard}>
                                 <Avatar
@@ -110,10 +115,10 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                             </Grid>
                         </Paper>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={downSm ? 12 : 8}>
                         <Paper className={classes.profileInformationCard} elevation={4}>
                             <Grid item xs container direction="row" spacing={2}>
-                                <Grid item xs={6}>
+                                <Grid item xs={downXs ? 12 : 6}>
                                     <Typography gutterBottom variant="subtitle1">
                                         Email:
                                     </Typography>

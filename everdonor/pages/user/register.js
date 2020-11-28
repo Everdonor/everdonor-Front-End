@@ -23,7 +23,7 @@ const types = [
   { name: "Comida", value: "Food" },
   { name: "Ropa", value: "Clothes" },
   { name: "Ayuda economica", value: "Funding" },
-  { name: "Cosas de niños", value: "KIDS" },
+  { name: "Primera necesidad", value: "PRIMARY" },
   { name: "Juguetes", value: "TOYS" },
 ]
 
