@@ -89,7 +89,7 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
         return element.name
     }
 
-    const hasLinks = Array.isArray(links) && links.length === 0;
+    const hasLinks = Array.isArray(links) && links.length > 0;
 
     return (
         <Container component="main">
@@ -155,8 +155,7 @@ export default function Profile({ user: { image, name, email, phoneNumber, addre
                                     <Typography variant="body2" color="textSecondary" gutterBottom>
                                         {address}
                                     </Typography>
-
-                                    {links || hasLinks &&
+                                    {hasLinks &&
                                         <>
                                             <Typography gutterBottom variant="subtitle1">
                                                 Links interesantes:
